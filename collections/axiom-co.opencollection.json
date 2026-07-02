@@ -1,0 +1,277 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Axiom API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{apiToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Ingest", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Ingest data into a dataset.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.axiom.co/v1/datasets/my-dataset/ingest",
+            "body": { "type": "json", "data": "[{ \"_time\": \"2026-07-02T00:00:00Z\", \"level\": \"info\", \"message\": \"hello axiom\" }]" }
+          },
+          "docs": "Send events (JSON array, NDJSON, or CSV) into a dataset."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Query", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Run an APL query.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.axiom.co/v1/datasets/_apl",
+            "params": [
+              { "name": "format", "value": "tabular", "type": "query", "description": "Result format: tabular or legacy." }
+            ],
+            "body": { "type": "json", "data": "{ \"apl\": \"['my-dataset'] | where status == 500 | count\", \"startTime\": \"2026-07-01T00:00:00Z\", \"endTime\": \"2026-07-02T00:00:00Z\" }" }
+          },
+          "docs": "Run an Axiom Processing Language (APL) query. Datasets are named inside the APL text."
+        },
+        {
+          "info": { "name": "Run a query (legacy).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.axiom.co/v1/datasets/:id/query",
+            "params": [
+              { "name": "id", "value": "my-dataset", "type": "path", "description": "The dataset ID or name." }
+            ],
+            "body": { "type": "json", "data": "{ \"startTime\": \"2026-07-01T00:00:00Z\", \"endTime\": \"2026-07-02T00:00:00Z\" }" }
+          },
+          "docs": "Run a structured legacy query against a single dataset."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Datasets", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List datasets.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.axiom.co/v1/datasets" },
+          "docs": "Retrieve the list of datasets."
+        },
+        {
+          "info": { "name": "Create a dataset.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.axiom.co/v1/datasets",
+            "body": { "type": "json", "data": "{ \"name\": \"my-dataset\", \"description\": \"Application logs\" }" }
+          },
+          "docs": "Create a new dataset."
+        },
+        {
+          "info": { "name": "Get a dataset.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v1/datasets/:id",
+            "params": [{ "name": "id", "value": "my-dataset", "type": "path", "description": "The dataset ID or name." }]
+          },
+          "docs": "Retrieve a dataset by ID or name."
+        },
+        {
+          "info": { "name": "Update a dataset.", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.axiom.co/v1/datasets/:id",
+            "params": [{ "name": "id", "value": "my-dataset", "type": "path", "description": "The dataset ID or name." }],
+            "body": { "type": "json", "data": "{ \"description\": \"Updated description\" }" }
+          },
+          "docs": "Update a dataset's description."
+        },
+        {
+          "info": { "name": "Delete a dataset.", "type": "http" },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.axiom.co/v1/datasets/:id",
+            "params": [{ "name": "id", "value": "my-dataset", "type": "path", "description": "The dataset ID or name." }]
+          },
+          "docs": "Delete a dataset and its data."
+        },
+        {
+          "info": { "name": "Trim a dataset.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.axiom.co/v1/datasets/:id/trim",
+            "params": [{ "name": "id", "value": "my-dataset", "type": "path", "description": "The dataset ID or name." }],
+            "body": { "type": "json", "data": "{ \"maxDuration\": \"30d\" }" }
+          },
+          "docs": "Delete data older than a given duration."
+        },
+        {
+          "info": { "name": "List fields for a dataset.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v1/datasets/:id/fields",
+            "params": [{ "name": "id", "value": "my-dataset", "type": "path", "description": "The dataset ID or name." }]
+          },
+          "docs": "List the discovered fields (schema) for a dataset."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Annotations", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List annotations.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v2/annotations",
+            "params": [{ "name": "datasets", "value": "my-dataset", "type": "query", "description": "Comma-separated dataset names." }]
+          },
+          "docs": "List annotations, optionally filtered by datasets and time range."
+        },
+        {
+          "info": { "name": "Create an annotation.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.axiom.co/v2/annotations",
+            "body": { "type": "json", "data": "{ \"type\": \"deploy\", \"datasets\": [\"my-dataset\"], \"title\": \"Deploy v1.2.3\", \"time\": \"2026-07-02T00:00:00Z\" }" }
+          },
+          "docs": "Create an annotation."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Monitors", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List monitors.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.axiom.co/v2/monitors" },
+          "docs": "List all monitors."
+        },
+        {
+          "info": { "name": "Get monitor history.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v2/monitors/:id/history",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The monitor ID." }]
+          },
+          "docs": "Retrieve the run history of a monitor."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Notifiers", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List notifiers.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.axiom.co/v2/notifiers" },
+          "docs": "List all notifiers. Requires the notifiers|read scope."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Dashboards", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List dashboards.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v2/dashboards",
+            "params": [
+              { "name": "limit", "value": "100", "type": "query", "description": "Max results (max 1000)." },
+              { "name": "offset", "value": "0", "type": "query", "description": "Pagination offset." }
+            ]
+          },
+          "docs": "List dashboards visible to the caller."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Virtual Fields", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List virtual fields.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v2/vfields",
+            "params": [{ "name": "dataset", "value": "my-dataset", "type": "query", "description": "The dataset to list virtual fields for." }]
+          },
+          "docs": "List virtual fields for a dataset."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Starred Queries", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List starred queries.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v2/starred",
+            "params": [{ "name": "dataset", "value": "my-dataset", "type": "query", "description": "Optional dataset filter." }]
+          },
+          "docs": "List saved (starred) APL queries."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Tokens", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List API tokens.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.axiom.co/v2/tokens" },
+          "docs": "List API tokens."
+        },
+        {
+          "info": { "name": "Create an API token.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.axiom.co/v2/tokens",
+            "body": { "type": "json", "data": "{ \"name\": \"ingest-token\", \"description\": \"Ingest-only token\", \"scopes\": [\"ingest\"] }" }
+          },
+          "docs": "Create a scoped API token. The secret is returned once."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Users", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get the current user.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v1/user",
+            "headers": [{ "name": "x-axiom-org-id", "value": "{{orgId}}" }]
+          },
+          "docs": "Retrieve the authenticating user."
+        },
+        {
+          "info": { "name": "List organization members.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v2/users",
+            "headers": [{ "name": "x-axiom-org-id", "value": "{{orgId}}" }]
+          },
+          "docs": "List members of the organization (PAT required)."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Organizations", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List organizations.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v1/orgs",
+            "headers": [{ "name": "x-axiom-org-id", "value": "{{orgId}}" }]
+          },
+          "docs": "List the organizations the caller belongs to (PAT required)."
+        }
+      ]
+    }
+  ]
+}

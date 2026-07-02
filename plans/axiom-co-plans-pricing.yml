@@ -1,0 +1,152 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Axiom
+providerId: axiom-co
+created: '2026-07-02'
+modified: '2026-07-02'
+reconciled: false
+tags:
+- Observability
+- Log Management
+- Event Data
+- Analytics
+- Plans
+description: >-
+  Axiom prices its observability platform around the volume of data loaded
+  (ingested) into datasets, query compute, and stored data rather than around
+  API call counts - the REST API itself carries no separate fee. As of 2026
+  Axiom offers a Personal tier that is "always free" with a bounded monthly
+  allowance (roughly 500 GB data loaded/month, ~10 GB-hours of query compute,
+  ~25 GB storage), a paid Team tier that starts low (around $25/month for the
+  first terabyte of data loaded) and scales usage-based, and a custom Enterprise
+  tier. Axiom's updated usage-based model bills data loading in credits per GB
+  (starting around 0.12 credits/GB and dropping toward ~0.09 credits/GB at high
+  volume) plus query compute, with automatic volume discounts.
+notes: >-
+  Axiom moved from tier-based to usage-based pricing in its 2026 pricing update;
+  exact GB allowances, credit rates, and query-compute pricing shift over time.
+  Verify current numbers on the Axiom pricing page during reconciliation. The
+  API and MCP server are available across tiers; billing is driven by ingest
+  volume, query compute, and storage - not by API request counts.
+sources:
+- https://axiom.co/pricing
+- https://axiom.co/blog/new-pricing-axiom-starts-lower-stays-lower
+- https://axiom.co/blog/reimagining-pricing
+- https://axiom.co/docs/restapi/api-limits
+plans:
+- id: axiom-personal
+  name: Personal (Always Free)
+  type: free
+  description: >-
+    Free-forever tier for individuals and small projects, with a bounded monthly
+    allowance of data loaded, query compute, and storage. Full access to
+    ingest, APL query, datasets, dashboards, monitors, and the REST API within
+    the allowance.
+  entries:
+  - label: Included Data Loaded
+    name: personal_data_loaded
+    type: usage
+    metric: bytes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1073741824
+    price: $0 up to ~500 GB loaded per month
+    userMultiplied: false
+  - label: Included Query Compute
+    name: personal_query_compute
+    type: usage
+    metric: gb_hours
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 up to ~10 GB-hours per month
+    userMultiplied: false
+  - label: Included Storage
+    name: personal_storage
+    type: usage
+    metric: bytes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1073741824
+    price: $0 up to ~25 GB stored
+    userMultiplied: false
+  elements:
+  - name: Ingest API
+  - name: APL Query API
+  - name: Datasets, Dashboards, Monitors
+  - name: REST API and MCP Server
+- id: axiom-team
+  name: Team
+  type: usage
+  description: >-
+    Paid usage-based tier that starts low (around $25/month for the first
+    terabyte of data loaded) and scales with data loaded, query compute, and
+    storage. Volume discounts apply automatically as usage grows.
+  entries:
+  - label: Data Loaded
+    name: team_data_loaded
+    type: usage
+    metric: bytes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1073741824
+    price: from ~$25/month for first TB; ~0.12 down to ~0.09 credits per GB at volume
+    userMultiplied: false
+  - label: Query Compute
+    name: team_query_compute
+    type: usage
+    metric: gb_hours
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: usage-based per GB-hour (see pricing page)
+    userMultiplied: false
+  - label: Storage
+    name: team_storage
+    type: usage
+    metric: bytes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1073741824
+    price: usage-based per GB stored (see pricing page)
+    userMultiplied: false
+  elements:
+  - name: Everything in Personal
+  - name: Higher Allowances
+  - name: Team Collaboration
+  - name: Volume Discounts
+- id: axiom-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom tier for high-volume observability with negotiated rates, SSO/SAML,
+    advanced security and compliance (SOC 2, HIPAA), dedicated support, SLAs,
+    and options such as private/EU-region deployment and AWS Marketplace
+    billing.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Pricing
+  - name: SSO / SAML and RBAC
+  - name: Compliance (SOC 2, HIPAA)
+  - name: SLAs and Dedicated Support
+  - name: EU Region / AWS Marketplace
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

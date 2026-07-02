@@ -1,0 +1,126 @@
+aid: axiom-co
+name: Axiom
+review:
+  question: Does Axiom expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-02'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Under the updated API Evangelist scope
+    (2026-05-29), HTTP Server-Sent Events (SSE) is in-scope for AsyncAPI
+    modeling, but Axiom's public REST API does not document an SSE (or any
+    server-push) transport. Ingest is a request/response POST, and both the APL
+    query endpoint (POST /v1/datasets/_apl) and the legacy query endpoint
+    (POST /v1/datasets/{id}/query) return a single complete JSON result body -
+    they are not streamed. The live-tail / "stream" experience in the Axiom
+    console is a UI feature layered over repeated calls to the query API, not a
+    documented public SSE or WebSocket endpoint. Because there is no
+    server-push transport on Axiom's own public API to model, no AsyncAPI spec
+    was created.
+findings:
+  summary: |
+    Axiom does not publish a documented public WebSocket API. Axiom is a log
+    management, event data, and observability platform. Its public API is a
+    REST/HTTPS API under https://api.axiom.co (US region) or
+    https://api.eu.axiom.co (EU region), split into a v1 endpoint family
+    (datasets, ingest, APL query, fields, current user) and a v2 endpoint family
+    (annotations, monitors, notifiers, dashboards, virtual fields, starred
+    queries, tokens, users). Authentication is a Bearer token - either a scoped
+    API token or a Personal Access Token (PAT); PAT requests additionally send
+    an x-axiom-org-id header. Ingest is request/response POST (JSON array,
+    NDJSON, or CSV), with a lower-latency edge ingest endpoint on
+    *.edge.axiom.co. Querying is request/response POST of an APL statement
+    returning tabular or legacy JSON. No realtime, bidirectional, or streaming
+    WebSocket (ws:// or wss://) endpoint - and no documented public SSE stream -
+    is described anywhere in Axiom's API reference.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.axiom.co
+      documented: true
+      note: v1 and v2 endpoint families. EU region base is https://api.eu.axiom.co.
+    - protocol: REST (Edge Ingest)
+      scheme: https
+      baseURL: https://{edge-deployment}.edge.axiom.co/v1/ingest/{DATASET_NAME}
+      documented: true
+      note: Lower-latency ingest endpoint (e.g. us-east-1.aws.edge.axiom.co, eu-central-1.aws.edge.axiom.co). Still request/response HTTP POST.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No documented public Server-Sent Events stream. The console live-tail is a UI feature over the query API, not a documented SSE endpoint.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Axiom's REST API reference, ingest, query, or any product page as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://api.axiom.co/v1/datasets
+    - POST   https://api.axiom.co/v1/datasets
+    - GET    https://api.axiom.co/v1/datasets/{id}
+    - PUT    https://api.axiom.co/v1/datasets/{id}
+    - DELETE https://api.axiom.co/v1/datasets/{id}
+    - POST   https://api.axiom.co/v1/datasets/{id}/trim
+    - POST   https://api.axiom.co/v1/datasets/{id}/ingest
+    - POST   https://api.axiom.co/v1/datasets/{id}/query
+    - POST   https://api.axiom.co/v1/datasets/_apl
+    - GET    https://api.axiom.co/v2/annotations
+    - POST   https://api.axiom.co/v2/annotations
+    - GET    https://api.axiom.co/v2/monitors
+    - GET    https://api.axiom.co/v2/notifiers
+    - GET    https://api.axiom.co/v2/dashboards
+    - GET    https://api.axiom.co/v2/vfields
+    - GET    https://api.axiom.co/v2/tokens
+  endpointsModeledRest:
+    - GET    https://api.axiom.co/v1/datasets/{id}/fields
+    - GET    https://api.axiom.co/v1/datasets/{id}/fields/{fieldName}
+    - PUT    https://api.axiom.co/v1/datasets/{id}/fields/{fieldName}
+    - GET    https://api.axiom.co/v1/user
+    - GET    https://api.axiom.co/v1/orgs
+    - GET    https://api.axiom.co/v1/orgs/{orgId}
+    - PUT    https://api.axiom.co/v1/orgs/{orgId}
+    - GET/PUT/DELETE https://api.axiom.co/v2/annotations/{id}
+    - POST/GET/PUT/DELETE https://api.axiom.co/v2/monitors and /v2/monitors/{id}
+    - GET    https://api.axiom.co/v2/monitors/{id}/history
+    - POST/GET/PUT/DELETE https://api.axiom.co/v2/notifiers and /v2/notifiers/{id}
+    - POST/GET/PUT/DELETE https://api.axiom.co/v2/dashboards and /v2/dashboards/{id}
+    - POST/GET/PUT/DELETE https://api.axiom.co/v2/vfields and /v2/vfields/{id}
+    - POST/GET/PUT/DELETE https://api.axiom.co/v2/starred and /v2/starred/{id}
+    - POST/GET/DELETE https://api.axiom.co/v2/tokens and /v2/tokens/{id}
+    - POST   https://api.axiom.co/v2/tokens/{id}/regenerate
+    - GET    https://api.axiom.co/v2/user
+    - GET    https://api.axiom.co/v2/users and /v2/users/{id}
+    - DELETE https://api.axiom.co/v2/users/{id}
+sources:
+  - url: https://axiom.co/docs/restapi/introduction
+    type: Documentation
+    note: Base domains (api.axiom.co / api.eu.axiom.co), Bearer auth, API tokens vs PATs (x-axiom-org-id), v1 and v2 families. No WebSocket mentioned.
+  - url: https://axiom.co/docs/restapi/endpoints
+    type: APIReference
+    note: Endpoint reference index; all documented operations are HTTPS REST.
+  - url: https://axiom.co/docs/restapi/ingest
+    type: Documentation
+    note: Ingest is POST (JSON/NDJSON/CSV) to /v1/datasets/{id}/ingest plus an edge ingest endpoint. Request/response, not WebSocket.
+  - url: https://axiom.co/docs/restapi/query
+    type: Documentation
+    note: APL query is POST /v1/query/_apl (also /v1/datasets/_apl) returning a single JSON result. No streaming, SSE, or WebSocket documented.
+  - url: https://axiom.co/docs/restapi/api-limits
+    type: Documentation
+    note: Three limit categories (general/query/ingest) with X-RateLimit-*, X-QueryLimit-*, X-IngestLimit-* headers and 429 responses. All over REST.
+  - url: https://axiom.co/docs/reference/tokens
+    type: Documentation
+    note: API tokens (basic ingest-only, advanced query/manage) vs Personal Access Tokens (full access, require org ID).
+  - url: https://github.com/axiomhq
+    type: SourceCode
+    note: Official SDKs (axiom-go, axiom-py) and MCP server; all clients are HTTP/REST against api.axiom.co.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists, and no documented public SSE stream
+    exists either. Axiom's own public API is request/response REST across its
+    v1 and v2 endpoint families (ingest, APL query, datasets, fields,
+    annotations, monitors, notifiers, dashboards, virtual fields, starred
+    queries, tokens, users, orgs). No AsyncAPI document was created because
+    there is no server-push transport on Axiom's own API to model - the console
+    live-tail is a UI feature over the query API, not a documented streaming
+    endpoint.

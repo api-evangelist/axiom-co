@@ -1,0 +1,103 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Axiom
+providerId: axiom-co
+created: '2026-07-02'
+modified: '2026-07-02'
+reconciled: false
+tags:
+- Observability
+- Log Management
+- Event Data
+- Rate Limiting
+- Quotas
+description: >-
+  Axiom applies three distinct categories of API limit and communicates each
+  through its own set of response headers. General API rate limits cap requests
+  per minute at either the user or organization scope. Query limits are metered
+  in gigabyte-milliseconds (GB*ms) of query compute against your plan. Ingest
+  limits are metered in bytes per month against your plan, and Axiom
+  additionally monitors ingest request rate - an organization sending an
+  excessive, sustained number of requests per second far above normal usage may
+  have its ingest suspended to protect system stability. When any limit is
+  exceeded the API returns HTTP 429 Too Many Requests with a JSON body of
+  {"message": "rate limit exceeded"}. Axiom recommends batching clients to
+  aggregate events and reduce request rate.
+notes: >-
+  Specific numeric per-minute request ceilings vary by plan and scope and are
+  surfaced at runtime in the X-RateLimit-* response headers rather than as a
+  single published constant. Query and ingest ceilings track your plan's monthly
+  allowances. Verify current values on the Axiom API limits page during
+  reconciliation.
+sources:
+- https://axiom.co/docs/restapi/api-limits
+- https://axiom.co/docs/restapi/introduction
+- https://axiom.co/docs/restapi/ingest
+responseCodes:
+  throttled: 429
+  throttledBody: '{"message": "rate limit exceeded"}'
+headers:
+  general:
+  - name: X-RateLimit-Scope
+    description: Whether the limit applies at the user or organization scope.
+  - name: X-RateLimit-Limit
+    description: Maximum number of requests allowed per minute in the current window.
+  - name: X-RateLimit-Remaining
+    description: Requests remaining in the current window.
+  - name: X-RateLimit-Reset
+    description: UTC epoch seconds at which the current window resets.
+  query:
+  - name: X-QueryLimit-Limit
+    description: Plan query-compute ceiling expressed in gigabyte-milliseconds (GB*ms).
+  - name: X-QueryLimit-Remaining
+    description: Remaining query compute in GB*ms.
+  - name: X-QueryLimit-Reset
+    description: UTC epoch seconds at which the query allowance resets.
+  ingest:
+  - name: X-IngestLimit-Limit
+    description: Maximum bytes that can be ingested per month under the plan.
+  - name: X-IngestLimit-Remaining
+    description: Bytes of ingest allowance remaining.
+  - name: X-IngestLimit-Reset
+    description: UTC epoch seconds at which the ingest allowance resets.
+limits:
+- name: General API Requests
+  scope: user-or-organization
+  metric: requests
+  limit: per-minute (surfaced in X-RateLimit-Limit)
+  notes: Applies to standard REST API operations; scope reported in X-RateLimit-Scope.
+- name: Query Compute
+  scope: organization
+  metric: gb_milliseconds
+  limit: per plan (surfaced in X-QueryLimit-Limit)
+  notes: APL and legacy queries consume query compute measured in GB*ms against the plan.
+- name: Ingest Volume
+  scope: organization
+  metric: bytes
+  limit: per month per plan (surfaced in X-IngestLimit-Limit)
+  notes: Monthly data-loaded allowance; overage and rates depend on plan tier.
+- name: Ingest Request Rate
+  scope: organization
+  metric: requests_per_second
+  limit: monitored (no fixed published constant)
+  notes: >-
+    Sustained excessive requests-per-second far above normal usage may lead to
+    ingest suspension. Use batching clients to aggregate events.
+policies:
+- name: Batching
+  description: >-
+    Axiom recommends batching clients that aggregate events before sending to
+    stay within ingest request-rate expectations and reduce 429s.
+- name: Backoff Strategy
+  description: >-
+    Clients should implement exponential backoff with jitter on 429 responses
+    and read the X-RateLimit-Reset / X-QueryLimit-Reset / X-IngestLimit-Reset
+    headers to time retries.
+- name: Header-Driven Throttling
+  description: >-
+    Remaining allowance for each category (general, query, ingest) is exposed in
+    dedicated response headers so clients can self-throttle before hitting 429.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

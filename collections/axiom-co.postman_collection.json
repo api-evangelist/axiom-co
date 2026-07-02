@@ -1,0 +1,296 @@
+{
+  "info": {
+    "name": "Axiom API",
+    "description": "Axiom is a log management, event data, and observability platform. This collection covers the public REST API: ingest, APL query, datasets, fields, annotations, monitors, notifiers, dashboards, virtual fields, starred queries, API tokens, users, and organizations. Base URL: https://api.axiom.co (US) or https://api.eu.axiom.co (EU). Authenticate with a Bearer API token or Personal Access Token; PATs also require an x-axiom-org-id header.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{apiToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.axiom.co", "type": "string" },
+    { "key": "apiToken", "value": "", "type": "string" },
+    { "key": "orgId", "value": "", "type": "string" },
+    { "key": "datasetName", "value": "my-dataset", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Ingest",
+      "item": [
+        {
+          "name": "Ingest data into a dataset",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "[\n  { \"_time\": \"2026-07-02T00:00:00Z\", \"level\": \"info\", \"message\": \"hello axiom\" }\n]" },
+            "url": { "raw": "{{baseUrl}}/v1/datasets/{{datasetName}}/ingest", "host": ["{{baseUrl}}"], "path": ["v1", "datasets", "{{datasetName}}", "ingest"] },
+            "description": "Send events (JSON array, NDJSON, or CSV) into a dataset."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Query",
+      "item": [
+        {
+          "name": "Run an APL query",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"apl\": \"['my-dataset'] | where status == 500 | count\",\n  \"startTime\": \"2026-07-01T00:00:00Z\",\n  \"endTime\": \"2026-07-02T00:00:00Z\"\n}" },
+            "url": { "raw": "{{baseUrl}}/v1/datasets/_apl?format=tabular", "host": ["{{baseUrl}}"], "path": ["v1", "datasets", "_apl"], "query": [{ "key": "format", "value": "tabular" }] },
+            "description": "Run an Axiom Processing Language (APL) query. Datasets are named inside the APL text."
+          }
+        },
+        {
+          "name": "Run a query (legacy)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"startTime\": \"2026-07-01T00:00:00Z\",\n  \"endTime\": \"2026-07-02T00:00:00Z\"\n}" },
+            "url": { "raw": "{{baseUrl}}/v1/datasets/{{datasetName}}/query", "host": ["{{baseUrl}}"], "path": ["v1", "datasets", "{{datasetName}}", "query"] },
+            "description": "Run a structured legacy query against a single dataset."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Datasets",
+      "item": [
+        {
+          "name": "List datasets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v1/datasets", "host": ["{{baseUrl}}"], "path": ["v1", "datasets"] },
+            "description": "Retrieve the list of datasets."
+          }
+        },
+        {
+          "name": "Create a dataset",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"my-dataset\",\n  \"description\": \"Application logs\"\n}" },
+            "url": { "raw": "{{baseUrl}}/v1/datasets", "host": ["{{baseUrl}}"], "path": ["v1", "datasets"] },
+            "description": "Create a new dataset."
+          }
+        },
+        {
+          "name": "Get a dataset",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v1/datasets/:id", "host": ["{{baseUrl}}"], "path": ["v1", "datasets", ":id"], "variable": [{ "key": "id", "value": "my-dataset" }] },
+            "description": "Retrieve a dataset by ID or name."
+          }
+        },
+        {
+          "name": "Update a dataset",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"description\": \"Updated description\"\n}" },
+            "url": { "raw": "{{baseUrl}}/v1/datasets/:id", "host": ["{{baseUrl}}"], "path": ["v1", "datasets", ":id"], "variable": [{ "key": "id", "value": "my-dataset" }] },
+            "description": "Update a dataset's description."
+          }
+        },
+        {
+          "name": "Delete a dataset",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v1/datasets/:id", "host": ["{{baseUrl}}"], "path": ["v1", "datasets", ":id"], "variable": [{ "key": "id", "value": "my-dataset" }] },
+            "description": "Delete a dataset and its data."
+          }
+        },
+        {
+          "name": "Trim a dataset",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"maxDuration\": \"30d\"\n}" },
+            "url": { "raw": "{{baseUrl}}/v1/datasets/:id/trim", "host": ["{{baseUrl}}"], "path": ["v1", "datasets", ":id", "trim"], "variable": [{ "key": "id", "value": "my-dataset" }] },
+            "description": "Delete data older than a given duration."
+          }
+        },
+        {
+          "name": "List fields for a dataset",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v1/datasets/:id/fields", "host": ["{{baseUrl}}"], "path": ["v1", "datasets", ":id", "fields"], "variable": [{ "key": "id", "value": "my-dataset" }] },
+            "description": "List the discovered fields (schema) for a dataset."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Annotations",
+      "item": [
+        {
+          "name": "List annotations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v2/annotations?datasets={{datasetName}}", "host": ["{{baseUrl}}"], "path": ["v2", "annotations"], "query": [{ "key": "datasets", "value": "{{datasetName}}" }] },
+            "description": "List annotations, optionally filtered by datasets and time range."
+          }
+        },
+        {
+          "name": "Create an annotation",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"type\": \"deploy\",\n  \"datasets\": [\"my-dataset\"],\n  \"title\": \"Deploy v1.2.3\",\n  \"time\": \"2026-07-02T00:00:00Z\"\n}" },
+            "url": { "raw": "{{baseUrl}}/v2/annotations", "host": ["{{baseUrl}}"], "path": ["v2", "annotations"] },
+            "description": "Create an annotation."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Monitors",
+      "item": [
+        {
+          "name": "List monitors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v2/monitors", "host": ["{{baseUrl}}"], "path": ["v2", "monitors"] },
+            "description": "List all monitors."
+          }
+        },
+        {
+          "name": "Get monitor history",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v2/monitors/:id/history", "host": ["{{baseUrl}}"], "path": ["v2", "monitors", ":id", "history"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieve the run history of a monitor."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifiers",
+      "item": [
+        {
+          "name": "List notifiers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v2/notifiers", "host": ["{{baseUrl}}"], "path": ["v2", "notifiers"] },
+            "description": "List all notifiers. Requires the notifiers|read scope."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboards",
+      "item": [
+        {
+          "name": "List dashboards",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v2/dashboards?limit=100&offset=0", "host": ["{{baseUrl}}"], "path": ["v2", "dashboards"], "query": [{ "key": "limit", "value": "100" }, { "key": "offset", "value": "0" }] },
+            "description": "List dashboards visible to the caller."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Virtual Fields",
+      "item": [
+        {
+          "name": "List virtual fields",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v2/vfields?dataset={{datasetName}}", "host": ["{{baseUrl}}"], "path": ["v2", "vfields"], "query": [{ "key": "dataset", "value": "{{datasetName}}" }] },
+            "description": "List virtual fields for a dataset."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Starred Queries",
+      "item": [
+        {
+          "name": "List starred queries",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v2/starred?dataset={{datasetName}}", "host": ["{{baseUrl}}"], "path": ["v2", "starred"], "query": [{ "key": "dataset", "value": "{{datasetName}}" }] },
+            "description": "List saved (starred) APL queries."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tokens",
+      "item": [
+        {
+          "name": "List API tokens",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/v2/tokens", "host": ["{{baseUrl}}"], "path": ["v2", "tokens"] },
+            "description": "List API tokens."
+          }
+        },
+        {
+          "name": "Create an API token",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"ingest-token\",\n  \"description\": \"Ingest-only token\",\n  \"scopes\": [\"ingest\"]\n}" },
+            "url": { "raw": "{{baseUrl}}/v2/tokens", "host": ["{{baseUrl}}"], "path": ["v2", "tokens"] },
+            "description": "Create a scoped API token. The secret is returned once."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get the current user",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-axiom-org-id", "value": "{{orgId}}" }],
+            "url": { "raw": "{{baseUrl}}/v1/user", "host": ["{{baseUrl}}"], "path": ["v1", "user"] },
+            "description": "Retrieve the authenticating user."
+          }
+        },
+        {
+          "name": "List organization members",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-axiom-org-id", "value": "{{orgId}}" }],
+            "url": { "raw": "{{baseUrl}}/v2/users", "host": ["{{baseUrl}}"], "path": ["v2", "users"] },
+            "description": "List members of the organization (PAT required)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Organizations",
+      "item": [
+        {
+          "name": "List organizations",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-axiom-org-id", "value": "{{orgId}}" }],
+            "url": { "raw": "{{baseUrl}}/v1/orgs", "host": ["{{baseUrl}}"], "path": ["v1", "orgs"] },
+            "description": "List the organizations the caller belongs to (PAT required)."
+          }
+        }
+      ]
+    }
+  ]
+}

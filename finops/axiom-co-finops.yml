@@ -1,0 +1,110 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Axiom
+providerId: axiom-co
+created: '2026-07-02'
+modified: '2026-07-02'
+reconciled: false
+tags:
+- Observability
+- Log Management
+- Event Data
+- Analytics
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Axiom spend. Axiom is an observability platform billed on
+  usage, driven primarily by the volume of data loaded (ingested) into datasets,
+  the query compute consumed running APL queries, and the volume of data stored.
+  The REST API and MCP server carry no separate per-call fee - cost is a function
+  of GB ingested, GB-hours (or GB*ms) of query compute, and GB stored. A free
+  Personal allowance covers small usage; the Team tier is usage-based with
+  automatic volume discounts on data loaded; Enterprise agreements cover
+  high-volume, EU-region, and AWS Marketplace billing arrangements. The dominant
+  optimization levers are what you ingest (drop or sample noisy fields/events
+  before loading), how you query (scope APL time ranges and datasets), and
+  retention (trim/vacuum datasets to control stored volume).
+notes: >-
+  Per-unit credit rates and query-compute pricing change with Axiom's
+  usage-based model; verify current rates on the Axiom pricing page. Ingest and
+  query allowances and consumption are also observable at runtime via the
+  X-IngestLimit-* and X-QueryLimit-* response headers, which support programmatic
+  cost/quota tracking.
+sources:
+- https://axiom.co/pricing
+- https://axiom.co/blog/new-pricing-axiom-starts-lower-stays-lower
+- https://axiom.co/docs/restapi/api-limits
+- https://axiom.co/blog/axiom-aws-marketplace
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Axiom
+serviceCategory: Observability and Log Management
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Axiom
+  ServiceCategory: Observability and Log Management
+  ProviderName: Axiom
+  PublisherName: Axiom
+  InvoiceIssuerName: Axiom
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: data_loaded
+  description: Data loaded (ingested) into datasets, billed per GB (in credits) above the free allowance.
+  unit: bytes
+  aggregation: sum
+  dimensions:
+  - organization
+  - dataset
+- name: query_compute
+  description: Compute consumed running APL and legacy queries, metered in GB-hours / GB*ms.
+  unit: gb_hours
+  aggregation: sum
+  dimensions:
+  - organization
+  - dataset
+- name: storage
+  description: Volume of event data retained in datasets, billed per GB stored.
+  unit: bytes
+  aggregation: sum
+  dimensions:
+  - organization
+  - dataset
+principles:
+- name: Visibility
+  description: >-
+    Track GB loaded, query compute, and stored volume per dataset; read the
+    X-IngestLimit-* and X-QueryLimit-* response headers to monitor consumption
+    against plan allowances in real time.
+- name: Allocation
+  description: >-
+    Separate datasets per team, service, or environment so ingest, query, and
+    storage spend maps cleanly to internal cost centers.
+- name: Optimization
+  description: >-
+    Reduce ingest by dropping or sampling noisy fields/events before loading;
+    scope APL queries by dataset and time range to cut query compute; trim and
+    vacuum datasets and tune retention to control stored volume. Lean on
+    automatic volume discounts at high ingest.
+- name: Accountability
+  description: >-
+    Assign dataset owners and review monthly data-loaded, query-compute, and
+    storage against Personal/Team allowances or the Enterprise agreement.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
