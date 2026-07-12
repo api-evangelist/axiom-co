@@ -303,6 +303,10 @@ apis:
     caller belongs to, get an organization by ID, and update organization-level
     configuration.
 common:
+- type: DomainSecurity
+  url: security/axiom-co-domain-security.yml
+- type: Authentication
+  url: authentication/axiom-co-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/axiomhq
 - type: LinkedIn
@@ -317,6 +321,8 @@ common:
   url: rate-limits/axiom-co-rate-limits.yml
 - type: FinOps
   url: finops/axiom-co-finops.yml
+- url: https://axiom.co/blog/feed.xml
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/axiom-co-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token authentication using an Axiom API token or Personal Access Token
+    (PAT). PAT-authenticated requests must also send the x-axiom-org-id header.
+  sources:
+  - openapi/axiom-co-openapi.yml
