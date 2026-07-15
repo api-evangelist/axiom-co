@@ -303,6 +303,8 @@ apis:
     caller belongs to, get an organization by ID, and update organization-level
     configuration.
 common:
+- type: AgenticAccess
+  url: agentic-access/axiom-co-agentic-access.yml
 - type: DomainSecurity
   url: security/axiom-co-domain-security.yml
 - type: Authentication
