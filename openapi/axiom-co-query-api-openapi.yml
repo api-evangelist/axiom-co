@@ -1,0 +1,168 @@
+openapi: 3.0.3
+info:
+  title: Axiom Annotations Query API
+  description: 'Axiom is a log management, event data, and observability platform. This OpenAPI document describes Axiom''s public REST API, which ingests logs, traces, and events into datasets and queries them with the Axiom Processing Language (APL). Axiom exposes two endpoint families: the v1 family (datasets, ingest, APL query, fields, current user) and the v2 family (annotations, monitors, notifiers, dashboards, virtual fields, starred queries, tokens, users). The default base domain is https://api.axiom.co for the US region; EU organizations use https://api.eu.axiom.co. All requests authenticate with a Bearer token (an API token or a Personal Access Token). Personal Access Tokens additionally require an x-axiom-org-id header. Endpoints marked x-endpoint-status "confirmed" were verified against Axiom''s published API reference; those marked "modeled" are represented from the documentation index and reference conventions and should be reconciled against the live reference.'
+  version: '1.0'
+  contact:
+    name: Axiom
+    url: https://axiom.co
+  license:
+    name: Proprietary
+    url: https://axiom.co/terms
+servers:
+- url: https://api.axiom.co
+  description: US region (default)
+- url: https://api.eu.axiom.co
+  description: EU region
+security:
+- bearerAuth: []
+tags:
+- name: Query
+  description: Run APL queries across datasets.
+paths:
+  /v1/datasets/{id}/query:
+    parameters:
+    - $ref: '#/components/parameters/DatasetId'
+    post:
+      operationId: queryDataset
+      tags:
+      - Query
+      summary: Run a query (legacy)
+      description: Run a structured (legacy) query against a single dataset. Prefer the APL query endpoint for new integrations.
+      x-endpoint-status: confirmed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Query result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResult'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /v1/datasets/_apl:
+    post:
+      operationId: queryApl
+      tags:
+      - Query
+      summary: Run an APL query
+      description: Run an Axiom Processing Language (APL) query across one or more datasets. The dataset(s) are named inside the APL statement itself.
+      x-endpoint-status: confirmed
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - tabular
+          - legacy
+          default: tabular
+        description: Result serialization format.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AplQueryRequest'
+      responses:
+        '200':
+          description: APL query result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResult'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+components:
+  responses:
+    RateLimited:
+      description: Rate limit exceeded.
+      headers:
+        X-RateLimit-Scope:
+          schema:
+            type: string
+          description: Whether the limit is applied at the user or organization scope.
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Maximum requests allowed in the current window.
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Requests remaining in the current window.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: UTC epoch seconds when the window resets.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    QueryResult:
+      type: object
+      properties:
+        status:
+          type: object
+          additionalProperties: true
+        tables:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        matches:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    AplQueryRequest:
+      type: object
+      required:
+      - apl
+      properties:
+        apl:
+          type: string
+          description: The APL query text. Dataset(s) are referenced inside the query.
+          example: '[''my-dataset''] | where status == 500 | count'
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
+  parameters:
+    DatasetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The dataset ID or name.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication using an Axiom API token or Personal Access Token (PAT). PAT-authenticated requests must also send the x-axiom-org-id header.

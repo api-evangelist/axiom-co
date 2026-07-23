@@ -1,0 +1,232 @@
+openapi: 3.0.3
+info:
+  title: Axiom Annotations Datasets API
+  description: 'Axiom is a log management, event data, and observability platform. This OpenAPI document describes Axiom''s public REST API, which ingests logs, traces, and events into datasets and queries them with the Axiom Processing Language (APL). Axiom exposes two endpoint families: the v1 family (datasets, ingest, APL query, fields, current user) and the v2 family (annotations, monitors, notifiers, dashboards, virtual fields, starred queries, tokens, users). The default base domain is https://api.axiom.co for the US region; EU organizations use https://api.eu.axiom.co. All requests authenticate with a Bearer token (an API token or a Personal Access Token). Personal Access Tokens additionally require an x-axiom-org-id header. Endpoints marked x-endpoint-status "confirmed" were verified against Axiom''s published API reference; those marked "modeled" are represented from the documentation index and reference conventions and should be reconciled against the live reference.'
+  version: '1.0'
+  contact:
+    name: Axiom
+    url: https://axiom.co
+  license:
+    name: Proprietary
+    url: https://axiom.co/terms
+servers:
+- url: https://api.axiom.co
+  description: US region (default)
+- url: https://api.eu.axiom.co
+  description: EU region
+security:
+- bearerAuth: []
+tags:
+- name: Datasets
+  description: Manage the datasets that store ingested event data.
+paths:
+  /v1/datasets:
+    get:
+      operationId: getDatasets
+      tags:
+      - Datasets
+      summary: List datasets
+      description: Retrieve the list of datasets in the organization.
+      x-endpoint-status: confirmed
+      responses:
+        '200':
+          description: A list of datasets.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dataset'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+    post:
+      operationId: createDataset
+      tags:
+      - Datasets
+      summary: Create a dataset
+      description: Create a new dataset to store ingested events.
+      x-endpoint-status: confirmed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetCreateRequest'
+      responses:
+        '200':
+          description: The created dataset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /v1/datasets/{id}:
+    parameters:
+    - $ref: '#/components/parameters/DatasetId'
+    get:
+      operationId: getDataset
+      tags:
+      - Datasets
+      summary: Get a dataset
+      description: Retrieve a single dataset by ID or name.
+      x-endpoint-status: confirmed
+      responses:
+        '200':
+          description: The requested dataset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      operationId: updateDataset
+      tags:
+      - Datasets
+      summary: Update a dataset
+      description: Update a dataset's description.
+      x-endpoint-status: confirmed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetUpdateRequest'
+      responses:
+        '200':
+          description: The updated dataset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      operationId: deleteDataset
+      tags:
+      - Datasets
+      summary: Delete a dataset
+      description: Permanently delete a dataset and its data.
+      x-endpoint-status: confirmed
+      responses:
+        '204':
+          description: The dataset was deleted.
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v1/datasets/{id}/trim:
+    parameters:
+    - $ref: '#/components/parameters/DatasetId'
+    post:
+      operationId: trimDataset
+      tags:
+      - Datasets
+      summary: Trim a dataset
+      description: Delete data older than a given duration from the dataset.
+      x-endpoint-status: confirmed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                maxDuration:
+                  type: string
+                  description: Retention duration to keep, e.g. "30d".
+                  example: 30d
+      responses:
+        '200':
+          description: Trim result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  numDeleted:
+                    type: integer
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  schemas:
+    DatasetUpdateRequest:
+      type: object
+      properties:
+        description:
+          type: string
+    DatasetCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    Dataset:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        who:
+          type: string
+        created:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
+  responses:
+    RateLimited:
+      description: Rate limit exceeded.
+      headers:
+        X-RateLimit-Scope:
+          schema:
+            type: string
+          description: Whether the limit is applied at the user or organization scope.
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Maximum requests allowed in the current window.
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Requests remaining in the current window.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: UTC epoch seconds when the window resets.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    DatasetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The dataset ID or name.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication using an Axiom API token or Personal Access Token (PAT). PAT-authenticated requests must also send the x-axiom-org-id header.

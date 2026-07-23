@@ -1,0 +1,183 @@
+openapi: 3.0.3
+info:
+  title: Axiom Annotations API
+  description: 'Axiom is a log management, event data, and observability platform. This OpenAPI document describes Axiom''s public REST API, which ingests logs, traces, and events into datasets and queries them with the Axiom Processing Language (APL). Axiom exposes two endpoint families: the v1 family (datasets, ingest, APL query, fields, current user) and the v2 family (annotations, monitors, notifiers, dashboards, virtual fields, starred queries, tokens, users). The default base domain is https://api.axiom.co for the US region; EU organizations use https://api.eu.axiom.co. All requests authenticate with a Bearer token (an API token or a Personal Access Token). Personal Access Tokens additionally require an x-axiom-org-id header. Endpoints marked x-endpoint-status "confirmed" were verified against Axiom''s published API reference; those marked "modeled" are represented from the documentation index and reference conventions and should be reconciled against the live reference.'
+  version: '1.0'
+  contact:
+    name: Axiom
+    url: https://axiom.co
+  license:
+    name: Proprietary
+    url: https://axiom.co/terms
+servers:
+- url: https://api.axiom.co
+  description: US region (default)
+- url: https://api.eu.axiom.co
+  description: EU region
+security:
+- bearerAuth: []
+tags:
+- name: Annotations
+  description: Mark deployments, incidents, and events on charts.
+paths:
+  /v2/annotations:
+    get:
+      operationId: getAnnotations
+      tags:
+      - Annotations
+      summary: List annotations
+      description: List annotations, optionally filtered by dataset names and a start/end time range.
+      x-endpoint-status: confirmed
+      parameters:
+      - name: datasets
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma-separated dataset names to filter by.
+      - name: start
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: end
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: A list of annotations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Annotation'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createAnnotation
+      tags:
+      - Annotations
+      summary: Create an annotation
+      description: Create an annotation scoped to one or more datasets and a time.
+      x-endpoint-status: confirmed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Annotation'
+      responses:
+        '200':
+          description: The created annotation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v2/annotations/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getAnnotation
+      tags:
+      - Annotations
+      summary: Get an annotation
+      x-endpoint-status: modeled
+      responses:
+        '200':
+          description: The requested annotation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      operationId: updateAnnotation
+      tags:
+      - Annotations
+      summary: Update an annotation
+      x-endpoint-status: modeled
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Annotation'
+      responses:
+        '200':
+          description: The updated annotation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      operationId: deleteAnnotation
+      tags:
+      - Annotations
+      summary: Delete an annotation
+      x-endpoint-status: modeled
+      responses:
+        '204':
+          description: The annotation was deleted.
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  schemas:
+    Annotation:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        datasets:
+          type: array
+          items:
+            type: string
+        title:
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+        time:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
+  parameters:
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The resource ID.
+  responses:
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication using an Axiom API token or Personal Access Token (PAT). PAT-authenticated requests must also send the x-axiom-org-id header.

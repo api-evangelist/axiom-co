@@ -1,0 +1,160 @@
+openapi: 3.0.3
+info:
+  title: Axiom Annotations Starred Queries API
+  description: 'Axiom is a log management, event data, and observability platform. This OpenAPI document describes Axiom''s public REST API, which ingests logs, traces, and events into datasets and queries them with the Axiom Processing Language (APL). Axiom exposes two endpoint families: the v1 family (datasets, ingest, APL query, fields, current user) and the v2 family (annotations, monitors, notifiers, dashboards, virtual fields, starred queries, tokens, users). The default base domain is https://api.axiom.co for the US region; EU organizations use https://api.eu.axiom.co. All requests authenticate with a Bearer token (an API token or a Personal Access Token). Personal Access Tokens additionally require an x-axiom-org-id header. Endpoints marked x-endpoint-status "confirmed" were verified against Axiom''s published API reference; those marked "modeled" are represented from the documentation index and reference conventions and should be reconciled against the live reference.'
+  version: '1.0'
+  contact:
+    name: Axiom
+    url: https://axiom.co
+  license:
+    name: Proprietary
+    url: https://axiom.co/terms
+servers:
+- url: https://api.axiom.co
+  description: US region (default)
+- url: https://api.eu.axiom.co
+  description: EU region
+security:
+- bearerAuth: []
+tags:
+- name: Starred Queries
+  description: Saved, shareable APL queries.
+paths:
+  /v2/starred:
+    get:
+      operationId: getStarredQueries
+      tags:
+      - Starred Queries
+      summary: List starred queries
+      description: List saved (starred) APL queries.
+      x-endpoint-status: modeled
+      parameters:
+      - name: dataset
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of starred queries.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StarredQuery'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createStarredQuery
+      tags:
+      - Starred Queries
+      summary: Create a starred query
+      x-endpoint-status: modeled
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StarredQuery'
+      responses:
+        '200':
+          description: The created starred query.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StarredQuery'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v2/starred/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getStarredQuery
+      tags:
+      - Starred Queries
+      summary: Get a starred query
+      x-endpoint-status: modeled
+      responses:
+        '200':
+          description: The requested starred query.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StarredQuery'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      operationId: updateStarredQuery
+      tags:
+      - Starred Queries
+      summary: Update a starred query
+      x-endpoint-status: modeled
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StarredQuery'
+      responses:
+        '200':
+          description: The updated starred query.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StarredQuery'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      operationId: deleteStarredQuery
+      tags:
+      - Starred Queries
+      summary: Delete a starred query
+      x-endpoint-status: modeled
+      responses:
+        '204':
+          description: The starred query was deleted.
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  schemas:
+    StarredQuery:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        dataset:
+          type: string
+        kind:
+          type: string
+        query:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
+  parameters:
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The resource ID.
+  responses:
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication using an Axiom API token or Personal Access Token (PAT). PAT-authenticated requests must also send the x-axiom-org-id header.

@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: Axiom Annotations Fields API
+  description: 'Axiom is a log management, event data, and observability platform. This OpenAPI document describes Axiom''s public REST API, which ingests logs, traces, and events into datasets and queries them with the Axiom Processing Language (APL). Axiom exposes two endpoint families: the v1 family (datasets, ingest, APL query, fields, current user) and the v2 family (annotations, monitors, notifiers, dashboards, virtual fields, starred queries, tokens, users). The default base domain is https://api.axiom.co for the US region; EU organizations use https://api.eu.axiom.co. All requests authenticate with a Bearer token (an API token or a Personal Access Token). Personal Access Tokens additionally require an x-axiom-org-id header. Endpoints marked x-endpoint-status "confirmed" were verified against Axiom''s published API reference; those marked "modeled" are represented from the documentation index and reference conventions and should be reconciled against the live reference.'
+  version: '1.0'
+  contact:
+    name: Axiom
+    url: https://axiom.co
+  license:
+    name: Proprietary
+    url: https://axiom.co/terms
+servers:
+- url: https://api.axiom.co
+  description: US region (default)
+- url: https://api.eu.axiom.co
+  description: EU region
+security:
+- bearerAuth: []
+tags:
+- name: Fields
+  description: Inspect and annotate dataset fields.
+paths:
+  /v1/datasets/{id}/fields:
+    parameters:
+    - $ref: '#/components/parameters/DatasetId'
+    get:
+      operationId: getFieldsForDataset
+      tags:
+      - Fields
+      summary: List fields for a dataset
+      description: List the discovered fields (schema) for a dataset.
+      x-endpoint-status: modeled
+      responses:
+        '200':
+          description: A list of fields.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Field'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v1/datasets/{id}/fields/{fieldName}:
+    parameters:
+    - $ref: '#/components/parameters/DatasetId'
+    - name: fieldName
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getFieldForDataset
+      tags:
+      - Fields
+      summary: Get a field
+      description: Retrieve metadata for a single field of a dataset.
+      x-endpoint-status: modeled
+      responses:
+        '200':
+          description: The requested field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Field'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      operationId: updateFieldForDataset
+      tags:
+      - Fields
+      summary: Update a field
+      description: Update per-field metadata such as description, unit, or hidden state.
+      x-endpoint-status: modeled
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Field'
+      responses:
+        '200':
+          description: The updated field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Field'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        unit:
+          type: string
+        hidden:
+          type: boolean
+  responses:
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    DatasetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The dataset ID or name.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication using an Axiom API token or Personal Access Token (PAT). PAT-authenticated requests must also send the x-axiom-org-id header.
