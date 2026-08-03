@@ -1,0 +1,38 @@
+{
+  "provider": "axiom-co",
+  "sources": [
+    "axiom-co-annotations-api-openapi.yml",
+    "axiom-co-dashboards-api-openapi.yml",
+    "axiom-co-datasets-api-openapi.yml",
+    "axiom-co-fields-api-openapi.yml",
+    "axiom-co-ingest-api-openapi.yml",
+    "axiom-co-monitors-api-openapi.yml",
+    "axiom-co-notifiers-api-openapi.yml",
+    "axiom-co-organizations-api-openapi.yml",
+    "axiom-co-query-api-openapi.yml",
+    "axiom-co-starred-queries-api-openapi.yml",
+    "axiom-co-tokens-api-openapi.yml",
+    "axiom-co-users-api-openapi.yml",
+    "axiom-co-virtual-fields-api-openapi.yml"
+  ],
+  "outputs": [
+    "axiom-co-annotations-api-openapi.yml",
+    "axiom-co-dashboards-api-openapi.yml",
+    "axiom-co-datasets-api-openapi.yml",
+    "axiom-co-fields-api-openapi.yml",
+    "axiom-co-ingest-api-openapi.yml",
+    "axiom-co-monitors-api-openapi.yml",
+    "axiom-co-notifiers-api-openapi.yml",
+    "axiom-co-organizations-api-openapi.yml",
+    "axiom-co-query-api-openapi.yml",
+    "axiom-co-starred-queries-api-openapi.yml",
+    "axiom-co-tokens-api-openapi.yml",
+    "axiom-co-users-api-openapi.yml",
+    "axiom-co-virtual-fields-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
