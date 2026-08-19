@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Axiom Annotations Ingest API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ingest",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ingest data into a dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.axiom.co/v1/datasets/:id/ingest",
+            "headers": [
+              {
+                "name": "Content-Encoding",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The dataset ID or name."
+              },
+              {
+                "name": "timestamp-field",
+                "value": "",
+                "type": "query",
+                "description": "Name of the field holding the event timestamp."
+              },
+              {
+                "name": "timestamp-format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the timestamp field."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send events into a dataset. Accepts a JSON array of event objects (application/json), newline-delimited JSON (application/x-ndjson), or CSV (text/csv). Optional query parameters control timestamp parsing."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

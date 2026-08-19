@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Axiom Annotations Fields API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List fields for a dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v1/datasets/:id/fields",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The dataset ID or name."
+              }
+            ]
+          },
+          "docs": "List the discovered fields (schema) for a dataset."
+        },
+        {
+          "info": {
+            "name": "Get a field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.axiom.co/v1/datasets/:id/fields/:fieldName",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The dataset ID or name."
+              },
+              {
+                "name": "fieldName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve metadata for a single field of a dataset."
+        },
+        {
+          "info": {
+            "name": "Update a field",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.axiom.co/v1/datasets/:id/fields/:fieldName",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The dataset ID or name."
+              },
+              {
+                "name": "fieldName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update per-field metadata such as description, unit, or hidden state."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
