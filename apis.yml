@@ -349,6 +349,8 @@ apis:
   humanURL: https://axiom.co/docs/restapi/ingest
   baseURL: https://api.axiom.co/v1
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -525,6 +527,8 @@ apis:
   humanURL: https://axiom.co/docs/restapi/ingest
   baseURL: https://api.axiom.co/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
