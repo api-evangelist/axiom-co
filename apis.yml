@@ -9,6 +9,18 @@ description: Axiom is a log management, event data, and observability platform t
   exposes ingest, APL query, datasets, fields, annotations, monitors, notifiers,
   dashboards, virtual fields, starred queries, API tokens, users, and organizations,
   with v1 and v2 endpoint families and Bearer token authentication.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
