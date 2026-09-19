@@ -54,6 +54,8 @@ apis:
   humanURL: https://axiom.co/docs/restapi/ingest
   baseURL: https://api.axiom.co/v1
   tags:
+  - Annotation
+  tags_raw:
   - Annotations
   properties:
   - type: OpenAPI
