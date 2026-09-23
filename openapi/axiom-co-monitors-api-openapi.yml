@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Axiom Annotations Monitors API
-  description: 'Axiom is a log management, event data, and observability platform. This OpenAPI document describes Axiom''s public REST API, which ingests logs, traces, and events into datasets and queries them with the Axiom Processing Language (APL). Axiom exposes two endpoint families: the v1 family (datasets, ingest, APL query, fields, current user) and the v2 family (annotations, monitors, notifiers, dashboards, virtual fields, starred queries, tokens, users). The default base domain is https://api.axiom.co for the US region; EU organizations use https://api.eu.axiom.co. All requests authenticate with a Bearer token (an API token or a Personal Access Token). Personal Access Tokens additionally require an x-axiom-org-id header. Endpoints marked x-endpoint-status "confirmed" were verified against Axiom''s published API reference; those marked "modeled" are represented from the documentation index and reference conventions and should be reconciled against the live reference.'
+  title: Axiom Monitors API
+  description: Axiom is a log management, event data, and observability platform.
   version: '1.0'
   contact:
     name: Axiom
@@ -134,7 +134,20 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  responses:
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
     Monitor:
       type: object
       properties:
@@ -161,12 +174,6 @@ components:
             type: string
         disabled:
           type: boolean
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          example: rate limit exceeded
   parameters:
     ResourceId:
       name: id
@@ -175,13 +182,6 @@ components:
       schema:
         type: string
       description: The resource ID.
-  responses:
-    Forbidden:
-      description: Authentication failed or the token lacks the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

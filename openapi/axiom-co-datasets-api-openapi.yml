@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Axiom Annotations Datasets API
-  description: 'Axiom is a log management, event data, and observability platform. This OpenAPI document describes Axiom''s public REST API, which ingests logs, traces, and events into datasets and queries them with the Axiom Processing Language (APL). Axiom exposes two endpoint families: the v1 family (datasets, ingest, APL query, fields, current user) and the v2 family (annotations, monitors, notifiers, dashboards, virtual fields, starred queries, tokens, users). The default base domain is https://api.axiom.co for the US region; EU organizations use https://api.eu.axiom.co. All requests authenticate with a Bearer token (an API token or a Personal Access Token). Personal Access Tokens additionally require an x-axiom-org-id header. Endpoints marked x-endpoint-status "confirmed" were verified against Axiom''s published API reference; those marked "modeled" are represented from the documentation index and reference conventions and should be reconciled against the live reference.'
+  title: Axiom Datasets API
+  description: Axiom is a log management, event data, and observability platform.
   version: '1.0'
   contact:
     name: Axiom
@@ -152,41 +152,6 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  schemas:
-    DatasetUpdateRequest:
-      type: object
-      properties:
-        description:
-          type: string
-    DatasetCreateRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-    Dataset:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        who:
-          type: string
-        created:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          example: rate limit exceeded
   responses:
     RateLimited:
       description: Rate limit exceeded.
@@ -217,6 +182,41 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  schemas:
+    DatasetUpdateRequest:
+      type: object
+      properties:
+        description:
+          type: string
+    Dataset:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        who:
+          type: string
+        created:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
+    DatasetCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
   parameters:
     DatasetId:
       name: id

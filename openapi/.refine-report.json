@@ -1,19 +1,7 @@
 {
   "provider": "axiom-co",
   "sources": [
-    "axiom-co-annotations-api-openapi.yml",
-    "axiom-co-dashboards-api-openapi.yml",
-    "axiom-co-datasets-api-openapi.yml",
-    "axiom-co-fields-api-openapi.yml",
-    "axiom-co-ingest-api-openapi.yml",
-    "axiom-co-monitors-api-openapi.yml",
-    "axiom-co-notifiers-api-openapi.yml",
-    "axiom-co-organizations-api-openapi.yml",
-    "axiom-co-query-api-openapi.yml",
-    "axiom-co-starred-queries-api-openapi.yml",
-    "axiom-co-tokens-api-openapi.yml",
-    "axiom-co-users-api-openapi.yml",
-    "axiom-co-virtual-fields-api-openapi.yml"
+    "_original/axiom-co-openapi.yml"
   ],
   "outputs": [
     "axiom-co-annotations-api-openapi.yml",
@@ -33,6 +21,24 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "axiom-co-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "axiom-co-annotations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-dashboards-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-datasets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-fields-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-ingest-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-monitors-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-notifiers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-organizations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-query-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-starred-queries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axiom-co-virtual-fields-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
