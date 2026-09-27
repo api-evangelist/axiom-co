@@ -85,20 +85,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  responses:
-    Forbidden:
-      description: Authentication failed or the token lacks the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          example: rate limit exceeded
     Organization:
       type: object
       properties:
@@ -111,6 +98,19 @@ components:
         planCreated:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
+  responses:
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

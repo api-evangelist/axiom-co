@@ -85,6 +85,14 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
+  parameters:
+    DatasetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The dataset ID or name.
   responses:
     RateLimited:
       description: Rate limit exceeded.
@@ -116,12 +124,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          example: rate limit exceeded
     AplQueryRequest:
       type: object
       required:
@@ -153,14 +155,12 @@ components:
           items:
             type: object
             additionalProperties: true
-  parameters:
-    DatasetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The dataset ID or name.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
   securitySchemes:
     bearerAuth:
       type: http
