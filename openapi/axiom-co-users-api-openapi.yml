@@ -103,21 +103,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  parameters:
-    ResourceId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The resource ID.
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          example: rate limit exceeded
     User:
       type: object
       properties:
@@ -129,6 +115,12 @@ components:
           type: string
         role:
           type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
   responses:
     Forbidden:
       description: Authentication failed or the token lacks the required scope.
@@ -136,6 +128,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The resource ID.
   securitySchemes:
     bearerAuth:
       type: http

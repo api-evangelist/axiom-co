@@ -152,15 +152,48 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  parameters:
-    DatasetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The dataset ID or name.
+  schemas:
+    DatasetCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
+    DatasetUpdateRequest:
+      type: object
+      properties:
+        description:
+          type: string
+    Dataset:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        who:
+          type: string
+        created:
+          type: string
+          format: date-time
   responses:
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     RateLimited:
       description: Rate limit exceeded.
       headers:
@@ -184,47 +217,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Authentication failed or the token lacks the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  schemas:
-    DatasetCreateRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          example: rate limit exceeded
-    Dataset:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        who:
-          type: string
-        created:
-          type: string
-          format: date-time
-    DatasetUpdateRequest:
-      type: object
-      properties:
-        description:
-          type: string
+  parameters:
+    DatasetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The dataset ID or name.
   securitySchemes:
     bearerAuth:
       type: http

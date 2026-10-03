@@ -85,15 +85,13 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  parameters:
-    DatasetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The dataset ID or name.
   responses:
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     RateLimited:
       description: Rate limit exceeded.
       headers:
@@ -113,12 +111,6 @@ components:
           schema:
             type: integer
           description: UTC epoch seconds when the window resets.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Authentication failed or the token lacks the required scope.
       content:
         application/json:
           schema:
@@ -161,6 +153,14 @@ components:
         message:
           type: string
           example: rate limit exceeded
+  parameters:
+    DatasetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The dataset ID or name.
   securitySchemes:
     bearerAuth:
       type: http

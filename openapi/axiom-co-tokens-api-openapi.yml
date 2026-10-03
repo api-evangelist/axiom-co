@@ -110,20 +110,19 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  responses:
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    TokenCreated:
-      allOf:
-      - $ref: '#/components/schemas/Token'
-      - type: object
-        properties:
-          token:
-            type: string
-            description: The token secret, returned only once.
-    TokenCreateRequest:
+    Token:
       type: object
-      required:
-      - name
       properties:
+        id:
+          type: string
         name:
           type: string
         description:
@@ -138,11 +137,19 @@ components:
         expiresAt:
           type: string
           format: date-time
-    Token:
+    TokenCreated:
+      allOf:
+      - $ref: '#/components/schemas/Token'
+      - type: object
+        properties:
+          token:
+            type: string
+            description: The token secret, returned only once.
+    TokenCreateRequest:
       type: object
+      required:
+      - name
       properties:
-        id:
-          type: string
         name:
           type: string
         description:
@@ -171,13 +178,6 @@ components:
       schema:
         type: string
       description: The resource ID.
-  responses:
-    Forbidden:
-      description: Authentication failed or the token lacks the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

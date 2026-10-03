@@ -111,26 +111,6 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          example: rate limit exceeded
-    Notifier:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          description: Channel type, e.g. email, slack, pagerduty, webhook.
-        properties:
-          type: object
-          additionalProperties: true
   responses:
     Forbidden:
       description: Authentication failed or the token lacks the required scope.
@@ -146,6 +126,26 @@ components:
       schema:
         type: string
       description: The resource ID.
+  schemas:
+    Notifier:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          description: Channel type, e.g. email, slack, pagerduty, webhook.
+        properties:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
   securitySchemes:
     bearerAuth:
       type: http
