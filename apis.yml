@@ -627,6 +627,9 @@ apis:
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
 common:
+- type: CapabilityMap
+  url: capabilities/axiom-co-capability-edges.yml
+  name: Axiom Business Capability Map
 - type: AgenticAccess
   url: agentic-access/axiom-co-agentic-access.yml
 - type: DomainSecurity
