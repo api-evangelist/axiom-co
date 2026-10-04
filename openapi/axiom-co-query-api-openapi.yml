@@ -116,6 +116,12 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
     AplQueryRequest:
       type: object
       required:
@@ -147,12 +153,6 @@ components:
           items:
             type: object
             additionalProperties: true
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          example: rate limit exceeded
   parameters:
     DatasetId:
       name: id
