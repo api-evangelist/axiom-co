@@ -1,19 +1,159 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/axiom-co-openapi.yml
+source: openapi/axiom-co-annotations-api-openapi.yml, openapi/axiom-co-dashboards-api-openapi.yml,
+  openapi/axiom-co-datasets-api-openapi.yml, openapi/axiom-co-fields-api-openapi.yml, openapi/axiom-co-ingest-api-openapi.yml,
+  openapi/axiom-co-monitors-api-openapi.yml, openapi/axiom-co-notifiers-api-openapi.yml, openapi/axiom-co-organizations-api-openapi.yml,
+  openapi/axiom-co-query-api-openapi.yml, openapi/axiom-co-starred-queries-api-openapi.yml,
+  openapi/axiom-co-tokens-api-openapi.yml, openapi/axiom-co-users-api-openapi.yml, openapi/axiom-co-virtual-fields-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 56
   by_action_class:
-    connected: 25
-    acting: 31
+    connected: 27
+    acting: 29
   by_consequence:
-    read: 25
-    write: 31
+    read: 27
+    write: 29
   human_in_the_loop_required: 0
 operations:
+- path: /v2/annotations
+  method: get
+  operationId: getAnnotations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/annotations
+  method: post
+  operationId: createAnnotation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/annotations/{id}
+  method: get
+  operationId: getAnnotation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/annotations/{id}
+  method: put
+  operationId: updateAnnotation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/annotations/{id}
+  method: delete
+  operationId: deleteAnnotation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/dashboards
+  method: get
+  operationId: getDashboards
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/dashboards
+  method: post
+  operationId: createDashboard
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/dashboards/{id}
+  method: get
+  operationId: getDashboard
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/dashboards/{id}
+  method: put
+  operationId: updateDashboard
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/dashboards/{id}
+  method: delete
+  operationId: deleteDashboard
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /v1/datasets
   method: get
   operationId: getDatasets
@@ -98,54 +238,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v1/datasets/{id}/ingest
-  method: post
-  operationId: ingestIntoDataset
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/datasets/{id}/query
-  method: post
-  operationId: queryDataset
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/datasets/_apl
-  method: post
-  operationId: queryApl
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /v1/datasets/{id}/fields
   method: get
   operationId: getFieldsForDataset
@@ -182,107 +274,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v1/user
-  method: get
-  operationId: getCurrentUserV1
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/orgs
-  method: get
-  operationId: getOrgs
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/orgs/{orgId}
-  method: get
-  operationId: getOrg
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/orgs/{orgId}
-  method: put
-  operationId: updateOrg
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/annotations
-  method: get
-  operationId: getAnnotations
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/annotations
+- path: /v1/datasets/{id}/ingest
   method: post
-  operationId: createAnnotation
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/annotations/{id}
-  method: get
-  operationId: getAnnotation
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/annotations/{id}
-  method: put
-  operationId: updateAnnotation
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/annotations/{id}
-  method: delete
-  operationId: deleteAnnotation
+  operationId: ingestIntoDataset
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -442,9 +436,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/dashboards
+- path: /v1/orgs
   method: get
-  operationId: getDashboards
+  operationId: getOrgs
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -452,25 +446,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/dashboards
-  method: post
-  operationId: createDashboard
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/dashboards/{id}
+- path: /v1/orgs/{orgId}
   method: get
-  operationId: getDashboard
+  operationId: getOrg
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -478,9 +456,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/dashboards/{id}
+- path: /v1/orgs/{orgId}
   method: put
-  operationId: updateDashboard
+  operationId: updateOrg
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -494,51 +472,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/dashboards/{id}
-  method: delete
-  operationId: deleteDashboard
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/vfields
-  method: get
-  operationId: getVirtualFields
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/vfields
+- path: /v1/datasets/{id}/query
   method: post
-  operationId: createVirtualField
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/vfields/{id}
-  method: get
-  operationId: getVirtualField
+  operationId: queryDataset
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -546,38 +482,16 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/vfields/{id}
-  method: put
-  operationId: updateVirtualField
+- path: /v1/datasets/_apl
+  method: post
+  operationId: queryApl
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/vfields/{id}
-  method: delete
-  operationId: deleteVirtualField
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /v2/starred
   method: get
   operationId: getStarredQueries
@@ -714,6 +628,16 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /v1/user
+  method: get
+  operationId: getCurrentUserV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /v2/user
   method: get
   operationId: getCurrentUser
@@ -747,6 +671,74 @@ operations:
 - path: /v2/users/{id}
   method: delete
   operationId: removeUserFromOrg
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/vfields
+  method: get
+  operationId: getVirtualFields
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/vfields
+  method: post
+  operationId: createVirtualField
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/vfields/{id}
+  method: get
+  operationId: getVirtualField
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/vfields/{id}
+  method: put
+  operationId: updateVirtualField
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/vfields/{id}
+  method: delete
+  operationId: deleteVirtualField
   x-agentic-access:
     action-class: acting
     consequence: write
