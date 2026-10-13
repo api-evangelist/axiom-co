@@ -1,0 +1,13 @@
+fetched: '2026-10-13'
+method: fetched
+source: https://axiom.co/docs/send-data/elasticsearch-bulk-api
+page: https://axiom.co/docs/send-data/elasticsearch-bulk-api
+file: axiom-co-elasticsearch-api-1.md
+bytes: 13127
+sha256: 84b8edc64909f431a055314664728021c6b98d41347e7e1e0e5e84b6ee027631
+anchor: elastic
+shape: elasticsearch-api
+classification: declares-compatibility
+quote: Axiom is a log management platform that offers an Elasticsearch Bulk API emulation to facilitate migration
+  from Elasticsearch or integration with tools that support the Elasticsearch Bulk API.
+note: text extracted from the provider's own page (tags stripped), saved for evidence

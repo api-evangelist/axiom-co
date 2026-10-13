@@ -1,0 +1,19 @@
+edges:
+- partner_name: Elastic
+  partner: elastic
+  partner_match: shape-anchor
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  shape: elasticsearch-api
+  type: docs
+  degree: declared-unqualified
+  evidence: https://axiom.co/docs/send-data/elasticsearch-bulk-api
+  evidence_kind: own-docs
+  evidence_file: https://github.com/api-evangelist/axiom-co/blob/main/evidence/compatibility/axiom-co-elasticsearch-api-1.md
+  quote: Axiom is a log management platform that offers an Elasticsearch Bulk API emulation to facilitate migration
+    from Elasticsearch or integration with tools that support the Elasticsearch Bulk API.
+  detected_by: sweep-shape-compat.py
+  first_seen: '2026-10-13'
+generated: '2026-10-13'
+method: searched
