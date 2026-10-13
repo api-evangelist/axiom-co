@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: Axiom REST Groups API
+  version: 1.0.0
+  description: REST API for Axiom serverless log management and analytics. Manage datasets, ingest data, run queries, and administer annotations, dashboards, monitors, notifiers, tokens, users, views, and other resources.
+servers:
+- url: https://api.axiom.co
+tags:
+- name: Groups
+paths:
+  /groups:
+    get:
+      summary: List all groups
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Groups
+      operationId: getGroups
+      x-operation-id-source: derived
+    post:
+      summary: Create group
+      responses:
+        '201':
+          description: Created
+      tags:
+      - Groups
+      operationId: postGroups
+      x-operation-id-source: derived
+  /groups/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve group
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Groups
+      operationId: getGroupsById
+      x-operation-id-source: derived
+    put:
+      summary: Update group
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Groups
+      operationId: putGroupsById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete group
+      responses:
+        '204':
+          description: No Content
+      tags:
+      - Groups
+      operationId: deleteGroupsById
+      x-operation-id-source: derived
+x-generated-from: https://axiom.co/docs/restapi/introduction
+x-generated-by: claude-crawl-2026-05-08

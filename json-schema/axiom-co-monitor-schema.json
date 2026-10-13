@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/axiom-co/main/json-schema/axiom-co-monitor-schema.json",
+  "title": "Monitor",
+  "x-generated": "2026-10-13",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/axiom-co-monitors-api-openapi.yml#/components/schemas/Monitor",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "description": "Monitor type, e.g. Threshold or MatchEvent."
+    },
+    "aplQuery": {
+      "type": "string"
+    },
+    "threshold": {
+      "type": "number"
+    },
+    "operator": {
+      "type": "string"
+    },
+    "intervalMinutes": {
+      "type": "integer"
+    },
+    "notifierIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "disabled": {
+      "type": "boolean"
+    }
+  }
+}

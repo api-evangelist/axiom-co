@@ -1,0 +1,42 @@
+openapi: 3.2.0
+info:
+  title: Axiom REST Edge API
+  version: 1.0.0
+  description: REST API for Axiom serverless log management and analytics. Manage datasets, ingest data, run queries, and administer annotations, dashboards, monitors, notifiers, tokens, users, views, and other resources.
+servers:
+- url: https://api.axiom.co
+tags:
+- name: Edge
+paths:
+  /v1/edge/query:
+    post:
+      summary: Run APL query to edge deployment
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Edge
+      operationId: postV1EdgeQuery
+      x-operation-id-source: derived
+  /v1/edge/query/batch:
+    post:
+      summary: Run batch query to edge deployment
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Edge
+      operationId: postV1EdgeQueryBatch
+      x-operation-id-source: derived
+  /v1/edge/metrics:
+    post:
+      summary: Run MPL query to edge deployment
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Edge
+      operationId: postV1EdgeMetrics
+      x-operation-id-source: derived
+x-generated-from: https://axiom.co/docs/restapi/introduction
+x-generated-by: claude-crawl-2026-05-08

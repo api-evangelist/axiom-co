@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: Axiom REST Views API
+  version: 1.0.0
+  description: REST API for Axiom serverless log management and analytics. Manage datasets, ingest data, run queries, and administer annotations, dashboards, monitors, notifiers, tokens, users, views, and other resources.
+servers:
+- url: https://api.axiom.co
+tags:
+- name: Views
+paths:
+  /views:
+    get:
+      summary: List all views
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Views
+      operationId: getViews
+      x-operation-id-source: derived
+    post:
+      summary: Create view
+      responses:
+        '201':
+          description: Created
+      tags:
+      - Views
+      operationId: postViews
+      x-operation-id-source: derived
+  /views/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve view
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Views
+      operationId: getViewsById
+      x-operation-id-source: derived
+    put:
+      summary: Update view
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Views
+      operationId: putViewsById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete view
+      responses:
+        '204':
+          description: No Content
+      tags:
+      - Views
+      operationId: deleteViewsById
+      x-operation-id-source: derived
+x-generated-from: https://axiom.co/docs/restapi/introduction
+x-generated-by: claude-crawl-2026-05-08

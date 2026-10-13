@@ -1,0 +1,38 @@
+generated: '2026-10-13'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/axiom-co-annotations-api-openapi.yml
+- openapi/axiom-co-dashboards-api-openapi.yml
+- openapi/axiom-co-datasets-api-openapi.yml
+- openapi/axiom-co-edge-api-openapi.yml
+- openapi/axiom-co-fields-api-openapi.yml
+- openapi/axiom-co-groups-api-openapi.yml
+- openapi/axiom-co-ingest-api-openapi.yml
+- openapi/axiom-co-mapfields-api-openapi.yml
+- openapi/axiom-co-monitors-api-openapi.yml
+- openapi/axiom-co-notifiers-api-openapi.yml
+- openapi/axiom-co-organizations-api-openapi.yml
+- openapi/axiom-co-query-api-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: Error
+coverage:
+  operations: 78
+  statuses_declared: 2
+problems:
+- status: 403
+  title: Forbidden
+  description: Authentication failed or the token lacks the required scope.
+  operations: 56
+  media_types:
+  - application/json
+  schema: Error
+- status: 429
+  title: Too Many Requests
+  description: Rate limit exceeded.
+  operations: 5
+  media_types:
+  - application/json
+  schema: Error

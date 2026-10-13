@@ -1,14 +1,16 @@
 aid: axiom-co
+
 url: https://raw.githubusercontent.com/api-evangelist/axiom-co/refs/heads/main/apis.yml
+
 name: Axiom
+
 kind: company
-description: Axiom is a log management, event data, and observability platform that
-  ingests, stores, and queries large volumes of logs, traces, and events at low cost.
-  Data is loaded into datasets and queried with the Axiom Processing Language (APL).
-  The REST API (base https://api.axiom.co, US region; https://api.eu.axiom.co for EU)
-  exposes ingest, APL query, datasets, fields, annotations, monitors, notifiers,
-  dashboards, virtual fields, starred queries, API tokens, users, and organizations,
-  with v1 and v2 endpoint families and Bearer token authentication.
+
+description: Axiom is a log management, event data, and observability platform that ingests, stores, and queries large volumes of logs, traces,
+  and events at low cost. Data is loaded into datasets and queried with the Axiom Processing Language (APL). The REST API (base https://api.axiom.co,
+  US region; https://api.eu.axiom.co for EU) exposes ingest, APL query, datasets, fields, annotations, monitors, notifiers, dashboards, virtual
+  fields, starred queries, API tokens, users, and organizations, with v1 and v2 endpoint families and Bearer token authentication.
+
 deliveryModel:
   model: saas
   open_source: false
@@ -21,6 +23,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -35,7 +38,9 @@ accessModel:
   - security
   generated: '2026-09-03'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/axiom-co.png
+
 tags:
 - Observability
 - Log Management
@@ -44,9 +49,64 @@ tags:
 - Tracing
 - Analytics
 - APL
+
 created: '2026-07-02'
+
 modified: '2026-07-02'
+
 specificationVersion: '0.23'
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
+common:
+- type: Spectral
+  url: rules/axiom-co-rules.yml
+- type: JSONLD
+  url: json-ld/axiom-co-context.jsonld
+- type: Vocabulary
+  url: vocabulary/axiom-co-vocabulary.yml
+- type: Webhooks
+  url: asyncapi/axiom-co-custom-webhook-asyncapi.yml
+- type: DataModel
+  url: data-model/axiom-co-data-model.yml
+- type: ErrorCatalog
+  url: errors/axiom-co-problem-types.yml
+- type: Conformance
+  url: conformance/axiom-co-conformance.yml
+- type: IntegrationEdges
+  url: integrations/axiom-co-integration-edges.yml
+- type: CapabilityMap
+  url: capabilities/axiom-co-capability-edges.yml
+  name: Axiom Business Capability Map
+- type: AgenticAccess
+  url: agentic-access/axiom-co-agentic-access.yml
+- type: DomainSecurity
+  url: security/axiom-co-domain-security.yml
+- type: Authentication
+  url: authentication/axiom-co-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/axiomhq
+- type: LinkedIn
+  url: https://www.linkedin.com/company/axiomhq
+- type: Website
+  url: https://axiom.co/
+- type: Documentation
+  url: https://axiom.co/docs
+- type: Plans
+  url: plans/axiom-co-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/axiom-co-rate-limits.yml
+- type: FinOps
+  url: finops/axiom-co-finops.yml
+- url: https://axiom.co/blog/feed.xml
+  type: Blog
+- type: AgentSkills
+  name: Agent Skills
+  url: https://github.com/axiomhq/skills
+  x-moved-from: axiom (consolidated into axiom-co 2026-10-13, approved by Kin Lane)
+
 apis:
 - aid: axiom-co:axiom-co-annotations-api
   name: Axiom Annotations API
@@ -94,6 +154,8 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-annotation-schema.json
 - aid: axiom-co:axiom-co-dashboards-api
   name: Axiom Dashboards API
   description: Collections of charts and visualizations.
@@ -138,6 +200,8 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-dashboard-schema.json
 - aid: axiom-co:axiom-co-datasets-api
   name: Axiom Datasets API
   description: Manage the datasets that store ingested event data.
@@ -182,6 +246,12 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-dataset-schema.json
+  - type: JSONSchema
+    url: json-schema/axiom-co-dataset-create-request-schema.json
+  - type: JSONSchema
+    url: json-schema/axiom-co-dataset-update-request-schema.json
 - aid: axiom-co:axiom-co-fields-api
   name: Axiom Fields API
   description: Inspect and annotate dataset fields.
@@ -226,6 +296,8 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-field-schema.json
 - aid: axiom-co:axiom-co-ingest-api
   name: Axiom Ingest API
   description: Send logs, traces, and events into a dataset.
@@ -270,6 +342,8 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-ingest-status-schema.json
 - aid: axiom-co:axiom-co-monitors-api
   name: Axiom Monitors API
   description: APL-backed alert monitors.
@@ -314,6 +388,8 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-monitor-schema.json
 - aid: axiom-co:axiom-co-notifiers-api
   name: Axiom Notifiers API
   description: Notification channels monitors dispatch through.
@@ -358,6 +434,8 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-notifier-schema.json
 - aid: axiom-co:axiom-co-organizations-api
   name: Axiom Organizations API
   description: Organization-level settings.
@@ -404,6 +482,8 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-organization-schema.json
 - aid: axiom-co:axiom-co-query-api
   name: Axiom Query API
   description: Run APL queries across datasets.
@@ -448,6 +528,10 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-apl-query-request-schema.json
+  - type: JSONSchema
+    url: json-schema/axiom-co-query-result-schema.json
 - aid: axiom-co:axiom-co-starred-queries-api
   name: Axiom Starred Queries API
   description: Saved, shareable APL queries.
@@ -492,6 +576,8 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-starred-query-schema.json
 - aid: axiom-co:axiom-co-tokens-api
   name: Axiom Tokens API
   description: Scoped API tokens used to authenticate requests.
@@ -536,6 +622,12 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-token-schema.json
+  - type: JSONSchema
+    url: json-schema/axiom-co-token-create-request-schema.json
+  - type: JSONSchema
+    url: json-schema/axiom-co-token-created-schema.json
 - aid: axiom-co:axiom-co-users-api
   name: Axiom Users API
   description: Current user and organization members.
@@ -582,6 +674,8 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
+  - type: JSONSchema
+    url: json-schema/axiom-co-user-schema.json
 - aid: axiom-co:axiom-co-virtual-fields-api
   name: Axiom Virtual Fields API
   description: Derived fields computed from an APL expression at query time.
@@ -626,32 +720,108 @@ apis:
     url: https://axiom.co/docs/reference/tokens
   - type: APIReference
     url: https://axiom.co/docs/restapi/endpoints/getCurrentUser
-common:
-- type: CapabilityMap
-  url: capabilities/axiom-co-capability-edges.yml
-  name: Axiom Business Capability Map
-- type: AgenticAccess
-  url: agentic-access/axiom-co-agentic-access.yml
-- type: DomainSecurity
-  url: security/axiom-co-domain-security.yml
-- type: Authentication
-  url: authentication/axiom-co-authentication.yml
-- type: GitHubOrganization
-  url: https://github.com/axiomhq
-- type: LinkedIn
-  url: https://www.linkedin.com/company/axiomhq
-- type: Website
-  url: https://axiom.co/
-- type: Documentation
-  url: https://axiom.co/docs
-- type: Plans
-  url: plans/axiom-co-plans-pricing.yml
-- type: RateLimits
-  url: rate-limits/axiom-co-rate-limits.yml
-- type: FinOps
-  url: finops/axiom-co-finops.yml
-- url: https://axiom.co/blog/feed.xml
-  type: Blog
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - type: JSONSchema
+    url: json-schema/axiom-co-virtual-field-schema.json
+- aid: axiom-co:axiom-co-edge-api
+  name: Axiom Edge API
+  description: The Edge API from Axiom — 3 operation(s) for edge.
+  humanURL: https://axiom.co/docs/restapi/introduction
+  baseURL: https://api.axiom.co
+  tags:
+  - Edge
+  properties:
+  - type: OpenAPI
+    url: openapi/axiom-co-edge-api-openapi.yml
+  - type: Documentation
+    url: https://axiom.co/docs/restapi/introduction
+  - type: Authentication
+    url: https://axiom.co/docs/restapi/token
+  - type: AsyncAPI
+    url: asyncapi/axiom-co-custom-webhook-asyncapi.yml
+  x-moved-from: axiom:axiom-edge-api (consolidated into axiom-co 2026-10-13, approved by Kin Lane)
+- aid: axiom-co:axiom-co-groups-api
+  name: Axiom Groups API
+  description: The Groups API from Axiom — 2 operation(s) for groups.
+  humanURL: https://axiom.co/docs/restapi/introduction
+  baseURL: https://api.axiom.co
+  tags:
+  - Group
+  tags_raw:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/axiom-co-groups-api-openapi.yml
+  - type: Documentation
+    url: https://axiom.co/docs/restapi/introduction
+  - type: Authentication
+    url: https://axiom.co/docs/restapi/token
+  - type: AsyncAPI
+    url: asyncapi/axiom-co-custom-webhook-asyncapi.yml
+  x-moved-from: axiom:axiom-groups-api (consolidated into axiom-co 2026-10-13, approved by Kin Lane)
+- aid: axiom-co:axiom-co-mapfields-api
+  name: Axiom Mapfields API
+  description: The Mapfields API from Axiom — 1 operation(s) for mapfields.
+  humanURL: https://axiom.co/docs/restapi/introduction
+  baseURL: https://api.axiom.co
+  tags:
+  - Mapfields
+  properties:
+  - type: OpenAPI
+    url: openapi/axiom-co-mapfields-api-openapi.yml
+  - type: Documentation
+    url: https://axiom.co/docs/restapi/introduction
+  - type: Authentication
+    url: https://axiom.co/docs/restapi/token
+  - type: AsyncAPI
+    url: asyncapi/axiom-co-custom-webhook-asyncapi.yml
+  x-moved-from: axiom:axiom-mapfields-api (consolidated into axiom-co 2026-10-13, approved by Kin Lane)
+- aid: axiom-co:axiom-co-roles-api
+  name: Axiom Roles API
+  description: The Roles API from Axiom — 2 operation(s) for roles.
+  humanURL: https://axiom.co/docs/restapi/introduction
+  baseURL: https://api.axiom.co
+  tags:
+  - Roles
+  properties:
+  - type: OpenAPI
+    url: openapi/axiom-co-roles-api-openapi.yml
+  - type: Documentation
+    url: https://axiom.co/docs/restapi/introduction
+  - type: Authentication
+    url: https://axiom.co/docs/restapi/token
+  - type: AsyncAPI
+    url: asyncapi/axiom-co-custom-webhook-asyncapi.yml
+  x-moved-from: axiom:axiom-roles-api (consolidated into axiom-co 2026-10-13, approved by Kin Lane)
+- aid: axiom-co:axiom-co-views-api
+  name: Axiom Views API
+  description: The Views API from Axiom — 2 operation(s) for views.
+  humanURL: https://axiom.co/docs/restapi/introduction
+  baseURL: https://api.axiom.co
+  tags:
+  - Views
+  properties:
+  - type: OpenAPI
+    url: openapi/axiom-co-views-api-openapi.yml
+  - type: Documentation
+    url: https://axiom.co/docs/restapi/introduction
+  - type: Authentication
+    url: https://axiom.co/docs/restapi/token
+  - type: AsyncAPI
+    url: asyncapi/axiom-co-custom-webhook-asyncapi.yml
+  x-moved-from: axiom:axiom-views-api (consolidated into axiom-co 2026-10-13, approved by Kin Lane)
+- aid: axiom-co:axiom-co-mcp-server
+  name: Axiom MCP Server
+  description: Axiom's hosted remote Model Context Protocol server (HTTP transport) at mcp.axiom.co, OAuth-protected per RFC 9728, for querying
+    datasets with APL from agents.
+  humanURL: https://github.com/axiomhq/mcp-server-axiom
+  baseURL: https://mcp.axiom.co/mcp
+  tags:
+  - MCP
+  - Agents
+  - Observability
+  properties:
+  - type: MCPServer
+    url: mcp/axiom-co-mcp.yml
+  - type: SourceCode
+    url: https://github.com/axiomhq/mcp-server-axiom
+  x-moved-from: axiom:mcp/axiom-mcp.yml (consolidated into axiom-co 2026-10-13, approved by Kin Lane)

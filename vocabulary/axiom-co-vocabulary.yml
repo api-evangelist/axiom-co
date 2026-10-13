@@ -1,0 +1,196 @@
+generated: '2026-10-13'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/axiom-co-annotations-api-openapi.yml
+- openapi/axiom-co-dashboards-api-openapi.yml
+- openapi/axiom-co-datasets-api-openapi.yml
+- openapi/axiom-co-edge-api-openapi.yml
+- openapi/axiom-co-fields-api-openapi.yml
+vocabulary:
+  name: Axiom Domain Vocabulary
+  description: 'Terms declared by Axiom''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-13'
+  terms:
+  - term: Annotations
+    definition: Mark deployments, incidents, and events on charts.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-annotations-api-openapi.yml
+  - term: Dashboards
+    definition: Collections of charts and visualizations.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-dashboards-api-openapi.yml
+  - term: Datasets
+    definition: Manage the datasets that store ingested event data.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-datasets-api-openapi.yml
+  - term: Fields
+    definition: Inspect and annotate dataset fields.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-fields-api-openapi.yml
+  - term: Ingest
+    definition: Send logs, traces, and events into a dataset.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-ingest-api-openapi.yml
+  - term: Monitors
+    definition: APL-backed alert monitors.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-monitors-api-openapi.yml
+  - term: Notifiers
+    definition: Notification channels monitors dispatch through.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-notifiers-api-openapi.yml
+  - term: Organizations
+    definition: Organization-level settings.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-organizations-api-openapi.yml
+  - term: Query
+    definition: Run APL queries across datasets.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-query-api-openapi.yml
+  - term: Starred Queries
+    definition: Saved, shareable APL queries.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-starred-queries-api-openapi.yml
+  - term: Tokens
+    definition: Scoped API tokens used to authenticate requests.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-tokens-api-openapi.yml
+  - term: Users
+    definition: Current user and organization members.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-users-api-openapi.yml
+  - term: Virtual Fields
+    definition: Derived fields computed from an APL expression at query time.
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-virtual-fields-api-openapi.yml
+  - term: Error
+    definition: 'Object declared by the contract with fields: message.'
+    tags:
+    - Object
+    source: openapi/axiom-co-annotations-api-openapi.yml#/components/schemas/Error
+  - term: Annotation
+    definition: 'Object declared by the contract with fields: id, type, datasets, title, description, url, time, endTime.'
+    tags:
+    - Object
+    source: openapi/axiom-co-annotations-api-openapi.yml#/components/schemas/Annotation
+  - term: Dashboard
+    definition: 'Object declared by the contract with fields: id, name, description, charts, layout.'
+    tags:
+    - Object
+    source: openapi/axiom-co-dashboards-api-openapi.yml#/components/schemas/Dashboard
+  - term: DatasetUpdateRequest
+    definition: 'Object declared by the contract with fields: description.'
+    tags:
+    - Object
+    source: openapi/axiom-co-datasets-api-openapi.yml#/components/schemas/DatasetUpdateRequest
+  - term: Dataset
+    definition: 'Object declared by the contract with fields: id, name, description, who, created.'
+    tags:
+    - Object
+    source: openapi/axiom-co-datasets-api-openapi.yml#/components/schemas/Dataset
+  - term: DatasetCreateRequest
+    definition: 'Object declared by the contract with fields: name, description.'
+    tags:
+    - Object
+    source: openapi/axiom-co-datasets-api-openapi.yml#/components/schemas/DatasetCreateRequest
+  - term: Field
+    definition: 'Object declared by the contract with fields: name, type, description, unit, hidden.'
+    tags:
+    - Object
+    source: openapi/axiom-co-fields-api-openapi.yml#/components/schemas/Field
+  - term: IngestStatus
+    definition: 'Object declared by the contract with fields: ingested, failed, processedBytes, blocksCreated, walLength, failures.'
+    tags:
+    - Object
+    source: openapi/axiom-co-ingest-api-openapi.yml#/components/schemas/IngestStatus
+  - term: Monitor
+    definition: 'Object declared by the contract with fields: id, name, description, type, aplQuery, threshold, operator, intervalMinutes, notifierIds,
+      disabled.'
+    tags:
+    - Object
+    source: openapi/axiom-co-monitors-api-openapi.yml#/components/schemas/Monitor
+  - term: Notifier
+    definition: 'Object declared by the contract with fields: id, name, type, properties.'
+    tags:
+    - Object
+    source: openapi/axiom-co-notifiers-api-openapi.yml#/components/schemas/Notifier
+  - term: Organization
+    definition: 'Object declared by the contract with fields: id, name, plan, planCreated.'
+    tags:
+    - Object
+    source: openapi/axiom-co-organizations-api-openapi.yml#/components/schemas/Organization
+  - term: AplQueryRequest
+    definition: 'Object declared by the contract with fields: apl, startTime, endTime.'
+    tags:
+    - Object
+    source: openapi/axiom-co-query-api-openapi.yml#/components/schemas/AplQueryRequest
+  - term: QueryResult
+    definition: 'Object declared by the contract with fields: status, tables, matches.'
+    tags:
+    - Object
+    source: openapi/axiom-co-query-api-openapi.yml#/components/schemas/QueryResult
+  - term: StarredQuery
+    definition: 'Object declared by the contract with fields: id, name, dataset, kind, query.'
+    tags:
+    - Object
+    source: openapi/axiom-co-starred-queries-api-openapi.yml#/components/schemas/StarredQuery
+  - term: Token
+    definition: 'Object declared by the contract with fields: id, name, description, scopes, datasetCapabilities, expiresAt.'
+    tags:
+    - Object
+    source: openapi/axiom-co-tokens-api-openapi.yml#/components/schemas/Token
+  - term: TokenCreateRequest
+    definition: 'Object declared by the contract with fields: name, description, scopes, datasetCapabilities, expiresAt.'
+    tags:
+    - Object
+    source: openapi/axiom-co-tokens-api-openapi.yml#/components/schemas/TokenCreateRequest
+  - term: User
+    definition: 'Object declared by the contract with fields: id, name, email, role.'
+    tags:
+    - Object
+    source: openapi/axiom-co-users-api-openapi.yml#/components/schemas/User
+  - term: VirtualField
+    definition: 'Object declared by the contract with fields: id, dataset, name, expression, description, type.'
+    tags:
+    - Object
+    source: openapi/axiom-co-virtual-fields-api-openapi.yml#/components/schemas/VirtualField
+  - term: Edge
+    definition: 'Resource group in the contract; its operation POST /v1/edge/query: Run APL query to edge deployment'
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-edge-api-openapi.yml
+  - term: Groups
+    definition: 'Resource group in the contract; its operation GET /groups: List all groups'
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-groups-api-openapi.yml
+  - term: Mapfields
+    definition: 'Resource group in the contract; its operation GET /mapfields: List all map fields'
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-mapfields-api-openapi.yml
+  - term: Roles
+    definition: 'Resource group in the contract; its operation GET /roles: List all roles'
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-roles-api-openapi.yml
+  - term: Views
+    definition: 'Resource group in the contract; its operation GET /views: List all views'
+    tags:
+    - Resource Group
+    source: openapi/axiom-co-views-api-openapi.yml

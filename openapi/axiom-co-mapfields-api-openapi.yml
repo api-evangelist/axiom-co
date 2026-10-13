@@ -1,0 +1,49 @@
+openapi: 3.2.0
+info:
+  title: Axiom REST Mapfields API
+  version: 1.0.0
+  description: REST API for Axiom serverless log management and analytics. Manage datasets, ingest data, run queries, and administer annotations, dashboards, monitors, notifiers, tokens, users, views, and other resources.
+servers:
+- url: https://api.axiom.co
+tags:
+- name: Mapfields
+paths:
+  /mapfields:
+    get:
+      summary: List all map fields
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Mapfields
+      operationId: getMapfields
+      x-operation-id-source: derived
+    post:
+      summary: Create map field
+      responses:
+        '201':
+          description: Created
+      tags:
+      - Mapfields
+      operationId: postMapfields
+      x-operation-id-source: derived
+    put:
+      summary: Update list of map fields
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Mapfields
+      operationId: putMapfields
+      x-operation-id-source: derived
+    delete:
+      summary: Delete map fields
+      responses:
+        '204':
+          description: No Content
+      tags:
+      - Mapfields
+      operationId: deleteMapfields
+      x-operation-id-source: derived
+x-generated-from: https://axiom.co/docs/restapi/introduction
+x-generated-by: claude-crawl-2026-05-08

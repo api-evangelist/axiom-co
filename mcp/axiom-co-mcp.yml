@@ -1,0 +1,34 @@
+generated: '2026-09-11'
+method: probed
+source: https://github.com/axiomhq/mcp-server-axiom
+status: gated
+server:
+  name: axiom
+  transport: http
+  url: https://mcp.axiom.co/mcp
+deployment:
+  mode: remote
+  endpoint: https://mcp.axiom.co/mcp
+  verified: probed
+  probe: gated
+  checked: '2026-09-11'
+  source: ptr_only reconciliation 2026-09-11 (apis.yml pointed here, no manifest existed)
+  probe_why: RFC 9728 challenge on the MCP path only
+tools_note: No tool list captured. This manifest records a PROBED, reachable endpoint only; anonymous
+  tools/list was auth-gated or the server requires an initialize handshake this reachability probe does
+  not perform. Run signals/audit_mcp_authorship.py --probe to enumerate tools and settle platform-vs-provider
+  authorship. Do NOT derive a tool list from the OpenAPI and store it here -- that is a candidate manifest,
+  and it belongs under an X-MCPServerCandidate pointer.
+rfc9728:
+  endpoint: https://mcp.axiom.co/mcp
+  metadata_url: https://mcp.axiom.co/.well-known/oauth-protected-resource
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.axiom.co
+    authorization_servers:
+    - https://authorization.axiom.co
+    bearer_methods_supported:
+    - header

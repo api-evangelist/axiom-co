@@ -1,0 +1,214 @@
+{
+  "@context": {
+    "@vocab": "https://axiom.co/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "axiom": "https://axiom.co/schema#",
+    "Error": "axiom:Error",
+    "message": {
+      "@id": "axiom:message",
+      "@type": "xsd:string"
+    },
+    "Annotation": "axiom:Annotation",
+    "id": {
+      "@id": "axiom:id",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "axiom:type",
+      "@type": "xsd:string"
+    },
+    "datasets": {
+      "@id": "axiom:datasets",
+      "@container": "@list"
+    },
+    "title": {
+      "@id": "axiom:title",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "axiom:description",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "axiom:url",
+      "@type": "xsd:string"
+    },
+    "time": {
+      "@id": "axiom:time",
+      "@type": "xsd:dateTime"
+    },
+    "endTime": {
+      "@id": "axiom:endTime",
+      "@type": "xsd:dateTime"
+    },
+    "Dashboard": "axiom:Dashboard",
+    "name": {
+      "@id": "axiom:name",
+      "@type": "xsd:string"
+    },
+    "charts": {
+      "@id": "axiom:charts",
+      "@container": "@list"
+    },
+    "layout": {
+      "@id": "axiom:layout",
+      "@container": "@list"
+    },
+    "DatasetUpdateRequest": "axiom:DatasetUpdateRequest",
+    "Dataset": "axiom:Dataset",
+    "who": {
+      "@id": "axiom:who",
+      "@type": "xsd:string"
+    },
+    "created": {
+      "@id": "axiom:created",
+      "@type": "xsd:dateTime"
+    },
+    "DatasetCreateRequest": "axiom:DatasetCreateRequest",
+    "Field": "axiom:Field",
+    "unit": {
+      "@id": "axiom:unit",
+      "@type": "xsd:string"
+    },
+    "hidden": {
+      "@id": "axiom:hidden",
+      "@type": "xsd:boolean"
+    },
+    "IngestStatus": "axiom:IngestStatus",
+    "ingested": {
+      "@id": "axiom:ingested",
+      "@type": "xsd:integer"
+    },
+    "failed": {
+      "@id": "axiom:failed",
+      "@type": "xsd:integer"
+    },
+    "processedBytes": {
+      "@id": "axiom:processedBytes",
+      "@type": "xsd:integer"
+    },
+    "blocksCreated": {
+      "@id": "axiom:blocksCreated",
+      "@type": "xsd:integer"
+    },
+    "walLength": {
+      "@id": "axiom:walLength",
+      "@type": "xsd:integer"
+    },
+    "failures": {
+      "@id": "axiom:failures",
+      "@container": "@list"
+    },
+    "Monitor": "axiom:Monitor",
+    "aplQuery": {
+      "@id": "axiom:aplQuery",
+      "@type": "xsd:string"
+    },
+    "threshold": {
+      "@id": "axiom:threshold",
+      "@type": "xsd:decimal"
+    },
+    "operator": {
+      "@id": "axiom:operator",
+      "@type": "xsd:string"
+    },
+    "intervalMinutes": {
+      "@id": "axiom:intervalMinutes",
+      "@type": "xsd:integer"
+    },
+    "notifierIds": {
+      "@id": "axiom:notifierIds",
+      "@container": "@list"
+    },
+    "disabled": {
+      "@id": "axiom:disabled",
+      "@type": "xsd:boolean"
+    },
+    "Notifier": "axiom:Notifier",
+    "properties": {
+      "@id": "axiom:properties"
+    },
+    "Organization": "axiom:Organization",
+    "plan": {
+      "@id": "axiom:plan",
+      "@type": "xsd:string"
+    },
+    "planCreated": {
+      "@id": "axiom:planCreated",
+      "@type": "xsd:dateTime"
+    },
+    "AplQueryRequest": "axiom:AplQueryRequest",
+    "apl": {
+      "@id": "axiom:apl",
+      "@type": "xsd:string"
+    },
+    "startTime": {
+      "@id": "axiom:startTime",
+      "@type": "xsd:dateTime"
+    },
+    "QueryResult": "axiom:QueryResult",
+    "status": {
+      "@id": "axiom:status"
+    },
+    "tables": {
+      "@id": "axiom:tables",
+      "@container": "@list"
+    },
+    "matches": {
+      "@id": "axiom:matches",
+      "@container": "@list"
+    },
+    "StarredQuery": "axiom:StarredQuery",
+    "dataset": {
+      "@id": "axiom:dataset",
+      "@type": "xsd:string"
+    },
+    "kind": {
+      "@id": "axiom:kind",
+      "@type": "xsd:string"
+    },
+    "query": {
+      "@id": "axiom:query"
+    },
+    "Token": "axiom:Token",
+    "scopes": {
+      "@id": "axiom:scopes",
+      "@container": "@list"
+    },
+    "datasetCapabilities": {
+      "@id": "axiom:datasetCapabilities"
+    },
+    "expiresAt": {
+      "@id": "axiom:expiresAt",
+      "@type": "xsd:dateTime"
+    },
+    "TokenCreateRequest": "axiom:TokenCreateRequest",
+    "User": "axiom:User",
+    "email": {
+      "@id": "axiom:email",
+      "@type": "xsd:string"
+    },
+    "role": {
+      "@id": "axiom:role",
+      "@type": "xsd:string"
+    },
+    "VirtualField": "axiom:VirtualField",
+    "expression": {
+      "@id": "axiom:expression",
+      "@type": "xsd:string"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Axiom API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Axiom's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-13) from openapi/axiom-co-annotations-api-openapi.yml, openapi/axiom-co-dashboards-api-openapi.yml, openapi/axiom-co-datasets-api-openapi.yml.",
+  "dcterms:created": "2026-10-13",
+  "dcterms:source": [
+    "openapi/axiom-co-annotations-api-openapi.yml",
+    "openapi/axiom-co-dashboards-api-openapi.yml",
+    "openapi/axiom-co-datasets-api-openapi.yml",
+    "openapi/axiom-co-edge-api-openapi.yml",
+    "openapi/axiom-co-fields-api-openapi.yml"
+  ]
+}

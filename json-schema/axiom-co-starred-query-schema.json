@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/axiom-co/main/json-schema/axiom-co-starred-query-schema.json",
+  "title": "StarredQuery",
+  "x-generated": "2026-10-13",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/axiom-co-starred-queries-api-openapi.yml#/components/schemas/StarredQuery",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "dataset": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "query": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

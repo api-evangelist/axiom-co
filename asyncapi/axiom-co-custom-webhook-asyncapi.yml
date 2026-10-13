@@ -1,0 +1,174 @@
+asyncapi: 2.6.0
+info:
+  title: Axiom Custom Webhook Notifier
+  description: >-
+    Axiom delivers monitor-triggered alerts to user-configured HTTP endpoints
+    via the Custom Webhook Notifier. A monitor (match, threshold, or anomaly)
+    runs a periodic query over event data, and when its condition is met (or
+    resolved, for threshold monitors) Axiom POSTs a JSON payload rendered from
+    a Go-template body to the customer's webhook URL. This AsyncAPI document
+    models the outgoing webhook surface that Axiom publishes to subscribers.
+    Live Stream, the in-product real-time inspector at axiom.co's Stream tab,
+    is documented only as a UI feature; the public Axiom docs do not specify a
+    customer-callable streaming API (SSE, WebSocket, or long-poll) for it, so
+    it is intentionally not modelled here.
+  version: '1.0.0'
+  contact:
+    name: Axiom
+    url: https://axiom.co/docs
+  license:
+    name: Proprietary
+servers:
+  external:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      The customer-owned HTTPS endpoint configured on an Axiom Custom Webhook
+      notifier. Axiom sends an HTTP POST with Content-Type application/json
+      plus any custom headers configured on the notifier.
+    variables:
+      webhookUrl:
+        description: >-
+          The URL of the endpoint configured on the Custom Webhook notifier
+          in the Axiom Console.
+channels:
+  /webhook:
+    description: >-
+      Outbound delivery channel. Axiom POSTs a JSON body rendered from the
+      notifier's template to the configured URL whenever a monitor fires or
+      (for threshold monitors) resolves. The default template emits an
+      envelope with an action field and an event object; operators may
+      customise this template using Go template syntax, so receivers should
+      treat the schema below as the default contract.
+    publish:
+      operationId: receiveAxiomNotification
+      summary: Receive a monitor notification from Axiom
+      description: >-
+        Axiom publishes a notification whenever an associated monitor
+        condition is met. Match monitors deliver one notification per matched
+        event. Threshold monitors deliver a notification when entering the
+        alert state (action "Open") and another when exiting it (action
+        "Closed").
+      message:
+        oneOf:
+          - $ref: '#/components/messages/MonitorOpen'
+          - $ref: '#/components/messages/MonitorClosed'
+components:
+  messages:
+    MonitorOpen:
+      name: monitorOpen
+      title: Monitor Opened
+      summary: >-
+        Sent when a match monitor matches an event, when a threshold monitor
+        enters its alert state, or when an anomaly monitor detects a deviation.
+        The default template sets action to "Open".
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/NotificationEnvelope'
+    MonitorClosed:
+      name: monitorClosed
+      title: Monitor Closed
+      summary: >-
+        Sent when a threshold monitor exits its alert state. The default
+        template sets action to "Closed".
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/NotificationEnvelope'
+  schemas:
+    NotificationEnvelope:
+      type: object
+      description: >-
+        Default JSON envelope rendered by the Custom Webhook notifier
+        template. Fields map one-to-one to Go template variables documented
+        by Axiom; templates are customisable so receivers should treat
+        unknown fields gracefully.
+      properties:
+        action:
+          type: string
+          description: >-
+            Rendered from .Action. "Open" indicates a match or a threshold
+            trigger. "Closed" indicates a threshold resolution.
+          enum:
+            - Open
+            - Closed
+        event:
+          $ref: '#/components/schemas/NotificationEvent'
+      required:
+        - action
+        - event
+    NotificationEvent:
+      type: object
+      description: >-
+        The inner event object exposed by the default notifier template.
+      properties:
+        monitorID:
+          type: string
+          description: >-
+            Rendered from .MonitorID. Unique identifier of the monitor that
+            generated the notification.
+        body:
+          type: string
+          description: >-
+            Rendered from .Body. Message body containing matching event data
+            (match monitors) or trigger/resolve information (threshold
+            monitors).
+        description:
+          type: string
+          description: >-
+            Rendered from .Description. The monitor's description as
+            configured in Axiom.
+        queryStartTime:
+          type: string
+          format: date-time
+          description: >-
+            Rendered from .QueryStartTime. Start of the query window
+            evaluated by the monitor.
+        queryEndTime:
+          type: string
+          format: date-time
+          description: >-
+            Rendered from .QueryEndTime. End of the query window evaluated by
+            the monitor.
+        timestamp:
+          type: string
+          format: date-time
+          description: >-
+            Rendered from .Timestamp. Time the notification was generated.
+        title:
+          type: string
+          description: >-
+            Rendered from .Title. Name of the monitor associated with the
+            notification.
+        value:
+          type: number
+          description: >-
+            Rendered from .Value. Numeric value that caused the monitor to
+            trigger or resolve. Populated for threshold monitors.
+        matchedEvent:
+          type: object
+          additionalProperties: true
+          description: >-
+            Rendered from .MatchedEvent via jsonObject. The matching event
+            for match monitors; absent for threshold and anomaly monitors.
+        groupKeys:
+          type: array
+          description: >-
+            Rendered from .GroupKeys via jsonArray. Group-by attribute names
+            from the monitor query, when group-based notifications are
+            enabled.
+          items:
+            type: string
+        groupValues:
+          type: array
+          description: >-
+            Rendered from .GroupValues via jsonArray. Group-by attribute
+            values aligned with groupKeys.
+          items:
+            type: string
+      required:
+        - monitorID
+        - title
+        - timestamp
+externalDocs:
+  description: Axiom Custom Webhook Notifier documentation
+  url: https://axiom.co/docs/monitor-data/custom-webhook-notifier

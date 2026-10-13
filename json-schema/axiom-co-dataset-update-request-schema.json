@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/axiom-co/main/json-schema/axiom-co-dataset-update-request-schema.json",
+  "title": "DatasetUpdateRequest",
+  "x-generated": "2026-10-13",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/axiom-co-datasets-api-openapi.yml#/components/schemas/DatasetUpdateRequest",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    }
+  }
+}
