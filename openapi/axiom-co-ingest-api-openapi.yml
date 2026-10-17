@@ -79,13 +79,40 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
+    IngestStatus:
+      type: object
+      properties:
+        ingested:
+          type: integer
+        failed:
+          type: integer
+        processedBytes:
+          type: integer
+        blocksCreated:
+          type: integer
+        walLength:
+          type: integer
+        failures:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+  parameters:
+    DatasetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The dataset ID or name.
   responses:
-    Forbidden:
-      description: Authentication failed or the token lacks the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     RateLimited:
       description: Rate limit exceeded.
       headers:
@@ -109,39 +136,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  schemas:
-    IngestStatus:
-      type: object
-      properties:
-        ingested:
-          type: integer
-        failed:
-          type: integer
-        processedBytes:
-          type: integer
-        blocksCreated:
-          type: integer
-        walLength:
-          type: integer
-        failures:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          example: rate limit exceeded
-  parameters:
-    DatasetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The dataset ID or name.
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

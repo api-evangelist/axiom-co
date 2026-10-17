@@ -88,13 +88,15 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  parameters:
+    DatasetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The dataset ID or name.
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          example: rate limit exceeded
     Field:
       type: object
       properties:
@@ -108,6 +110,12 @@ components:
           type: string
         hidden:
           type: boolean
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: rate limit exceeded
   responses:
     Forbidden:
       description: Authentication failed or the token lacks the required scope.
@@ -115,14 +123,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    DatasetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The dataset ID or name.
   securitySchemes:
     bearerAuth:
       type: http

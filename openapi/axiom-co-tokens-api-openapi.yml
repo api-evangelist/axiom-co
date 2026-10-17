@@ -111,11 +111,19 @@ paths:
           $ref: '#/components/responses/Forbidden'
 components:
   schemas:
-    Token:
+    TokenCreated:
+      allOf:
+      - $ref: '#/components/schemas/Token'
+      - type: object
+        properties:
+          token:
+            type: string
+            description: The token secret, returned only once.
+    TokenCreateRequest:
       type: object
+      required:
+      - name
       properties:
-        id:
-          type: string
         name:
           type: string
         description:
@@ -136,19 +144,11 @@ components:
         message:
           type: string
           example: rate limit exceeded
-    TokenCreated:
-      allOf:
-      - $ref: '#/components/schemas/Token'
-      - type: object
-        properties:
-          token:
-            type: string
-            description: The token secret, returned only once.
-    TokenCreateRequest:
+    Token:
       type: object
-      required:
-      - name
       properties:
+        id:
+          type: string
         name:
           type: string
         description:

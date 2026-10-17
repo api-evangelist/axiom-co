@@ -111,14 +111,6 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  parameters:
-    ResourceId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The resource ID.
   schemas:
     Error:
       type: object
@@ -146,6 +138,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The resource ID.
   securitySchemes:
     bearerAuth:
       type: http

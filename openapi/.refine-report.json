@@ -1,7 +1,12 @@
 {
   "provider": "axiom-co",
   "sources": [
-    "_original/axiom-co-openapi.yml"
+    "_original/axiom-co-openapi.yml",
+    "axiom-co-edge-api-openapi.yml",
+    "axiom-co-groups-api-openapi.yml",
+    "axiom-co-mapfields-api-openapi.yml",
+    "axiom-co-roles-api-openapi.yml",
+    "axiom-co-views-api-openapi.yml"
   ],
   "outputs": [
     "axiom-co-annotations-api-openapi.yml",
@@ -16,11 +21,22 @@
     "axiom-co-starred-queries-api-openapi.yml",
     "axiom-co-tokens-api-openapi.yml",
     "axiom-co-users-api-openapi.yml",
-    "axiom-co-virtual-fields-api-openapi.yml"
+    "axiom-co-virtual-fields-api-openapi.yml",
+    "axiom-co-edge-api-openapi.yml",
+    "axiom-co-groups-api-openapi.yml",
+    "axiom-co-mapfields-api-openapi.yml",
+    "axiom-co-roles-api-openapi.yml",
+    "axiom-co-views-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
+  "warnings": [
+    "axiom-co-edge-api-openapi.yml: previously refined output kept for 3 operation(s) no archived document covers (e.g. /v1/edge/metrics post, /v1/edge/query post, /v1/edge/query/batch post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "axiom-co-groups-api-openapi.yml: previously refined output kept for 5 operation(s) no archived document covers (e.g. /groups get, /groups post, /groups/{id} delete); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "axiom-co-mapfields-api-openapi.yml: previously refined output kept for 4 operation(s) no archived document covers (e.g. /mapfields delete, /mapfields get, /mapfields post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "axiom-co-roles-api-openapi.yml: previously refined output kept for 5 operation(s) no archived document covers (e.g. /roles get, /roles post, /roles/{id} delete); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "axiom-co-views-api-openapi.yml: previously refined output kept for 5 operation(s) no archived document covers (e.g. /views get, /views post, /views/{id} delete); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "axiom-co-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",

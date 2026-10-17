@@ -85,36 +85,6 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    Forbidden:
-      description: Authentication failed or the token lacks the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit exceeded.
-      headers:
-        X-RateLimit-Scope:
-          schema:
-            type: string
-          description: Whether the limit is applied at the user or organization scope.
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: Maximum requests allowed in the current window.
-        X-RateLimit-Remaining:
-          schema:
-            type: integer
-          description: Requests remaining in the current window.
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: UTC epoch seconds when the window resets.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -161,6 +131,36 @@ components:
       schema:
         type: string
       description: The dataset ID or name.
+  responses:
+    RateLimited:
+      description: Rate limit exceeded.
+      headers:
+        X-RateLimit-Scope:
+          schema:
+            type: string
+          description: Whether the limit is applied at the user or organization scope.
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Maximum requests allowed in the current window.
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Requests remaining in the current window.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: UTC epoch seconds when the window resets.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Authentication failed or the token lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
