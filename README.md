@@ -1,4 +1,4 @@
-# Axiom (axiom-co)
+# Axiom
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,301 +64,203 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Axiom is a log management, event data, and observability platform that ingests, stores, and queries large volumes of logs, traces, and events at low cost. Data is loaded into datasets and queried with the Axiom Processing Language (APL). The REST API (base `https://api.axiom.co` for the US region, `https://api.eu.axiom.co` for the EU region) exposes ingest, APL query, datasets, fields, annotations, monitors, notifiers, dashboards, virtual fields, starred queries, API tokens, users, and organizations, with v1 and v2 endpoint families and Bearer token authentication.
+Axiom is a log management, event data, and observability platform that ingests, stores, and queries large volumes of logs, traces, and events at low cost. Data is loaded into datasets and queried with the Axiom Processing Language (APL). The REST API (base https://api.axiom.co, US region; https://api.eu.axiom.co for EU) exposes ingest, APL query, datasets, fields, annotations, monitors, notifiers, dashboards, virtual fields, starred queries, API tokens, users, and organizations, with v1 and v2 endpoint families and Bearer token authentication.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/axiom-co/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/axiom-co/refs/heads/main/apis.yml)
+**Areas:** Observability · Log Management · Event Data · Logs · Tracing · Analytics · APL
 
-## Tags
+## Axiom on APIs.io
 
-- Observability
-- Log Management
-- Event Data
-- Logs
-- Tracing
-- Analytics
-- APL
+Everything profiled for Axiom is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/axiom-co/](https://apis.io/providers/axiom-co/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (19)
 
-- **Created:** 2026-07-02
-- **Modified:** 2026-07-02
+- [Axiom Annotations API](https://apis.io/apis/axiom-co/axiom-co-annotations-api/) — Mark deployments, incidents, and events on charts.
+- [Axiom Dashboards API](https://apis.io/apis/axiom-co/axiom-co-dashboards-api/) — Collections of charts and visualizations.
+- [Axiom Datasets API](https://apis.io/apis/axiom-co/axiom-co-datasets-api/) — Manage the datasets that store ingested event data.
+- [Axiom Fields API](https://apis.io/apis/axiom-co/axiom-co-fields-api/) — Inspect and annotate dataset fields.
+- [Axiom Ingest API](https://apis.io/apis/axiom-co/axiom-co-ingest-api/) — Send logs, traces, and events into a dataset.
+- [Axiom Monitors API](https://apis.io/apis/axiom-co/axiom-co-monitors-api/) — APL-backed alert monitors.
+- [Axiom Notifiers API](https://apis.io/apis/axiom-co/axiom-co-notifiers-api/) — Notification channels monitors dispatch through.
+- [Axiom Organizations API](https://apis.io/apis/axiom-co/axiom-co-organizations-api/) — Organization-level settings.
+- [Axiom Query API](https://apis.io/apis/axiom-co/axiom-co-query-api/) — Run APL queries across datasets.
+- [Axiom Starred Queries API](https://apis.io/apis/axiom-co/axiom-co-starred-queries-api/) — Saved, shareable APL queries.
+- [Axiom Tokens API](https://apis.io/apis/axiom-co/axiom-co-tokens-api/) — Scoped API tokens used to authenticate requests.
+- [Axiom Users API](https://apis.io/apis/axiom-co/axiom-co-users-api/) — Current user and organization members.
+- [Axiom Virtual Fields API](https://apis.io/apis/axiom-co/axiom-co-virtual-fields-api/) — Derived fields computed from an APL expression at query time.
+- [Axiom Edge API](https://apis.io/apis/axiom-co/axiom-co-edge-api/) — The Edge API from Axiom — 3 operation(s) for edge.
+- [Axiom Groups API](https://apis.io/apis/axiom-co/axiom-co-groups-api/) — The Groups API from Axiom — 2 operation(s) for groups.
+- [Axiom Mapfields API](https://apis.io/apis/axiom-co/axiom-co-mapfields-api/) — The Mapfields API from Axiom — 1 operation(s) for mapfields.
+- [Axiom Roles API](https://apis.io/apis/axiom-co/axiom-co-roles-api/) — The Roles API from Axiom — 2 operation(s) for roles.
+- [Axiom Views API](https://apis.io/apis/axiom-co/axiom-co-views-api/) — The Views API from Axiom — 2 operation(s) for views.
+- [Axiom MCP Server](https://apis.io/apis/axiom-co/axiom-co-mcp-server/) — Axiom's hosted remote Model Context Protocol server (HTTP transport) at mcp.axiom.co, OAuth-protected per RFC 9728, for querying datasets with APL from agents.
 
-## APIs
+### Published properties
 
-### Axiom Ingest API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Send logs, traces, and events into an Axiom dataset. POST JSON, NDJSON, or CSV payloads to a dataset ingest endpoint, with optional content encoding and timestamp field configuration. A lower-latency edge ingest endpoint is also available.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://axiom.co/docs/restapi/ingest](https://axiom.co/docs/restapi/ingest)
-- **Base URL:** `https://api.axiom.co/v1`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Axiom Custom Webhook Notifier](https://apis.io/asyncapis/axiom-co/axiom-co-custom-webhook-asyncapi/)
 
-- Ingest
-- Logs
-- Events
+#### Event channels (1)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://axiom.co/docs/restapi/ingest)
-- [API Reference](https://axiom.co/docs/restapi/endpoints/ingestIntoDataset)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [/webhook](https://apis.io/channels/axiom-co/webhook/)
 
-### Axiom Query API (APL)
+#### MCP servers (1)
 
-Run Axiom Processing Language (APL) queries across one or more datasets. POST an APL query with optional start/end times and receive tabular or legacy results. A legacy per-dataset structured query endpoint is also supported.
+Model Context Protocol servers that expose the API to agents.
 
-- **Human URL:** [https://axiom.co/docs/restapi/query](https://axiom.co/docs/restapi/query)
-- **Base URL:** `https://api.axiom.co/v1`
+- [Moved to axiom-co](https://apis.io/servers/axiom-co/axiom/)
 
-#### Tags
+#### Agentic access (1)
 
-- Query
-- APL
-- Analytics
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Properties
+- [Axiom Co Agentic Access](https://apis.io/agentic-access/axiom-co/axiom-co-agentic-access/)
 
-- [Documentation](https://axiom.co/docs/restapi/query)
-- [API Reference](https://axiom.co/docs/restapi/endpoints/queryApl)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON Schema (18)
 
-### Axiom Datasets API
+The data models the API reads and writes.
 
-Create, list, retrieve, update, and delete datasets - the containers that store ingested event data - plus trim and vacuum operations to manage retention and reclaim storage.
+- [Annotation](https://apis.io/schemas/axiom-co/axiom-co-annotation/)
+- [AplQueryRequest](https://apis.io/schemas/axiom-co/axiom-co-apl-query-request/)
+- [Dashboard](https://apis.io/schemas/axiom-co/axiom-co-dashboard/)
+- [Dataset](https://apis.io/schemas/axiom-co/axiom-co-dataset/)
+- [DatasetCreateRequest](https://apis.io/schemas/axiom-co/axiom-co-dataset-create-request/)
+- [DatasetUpdateRequest](https://apis.io/schemas/axiom-co/axiom-co-dataset-update-request/)
+- [Field](https://apis.io/schemas/axiom-co/axiom-co-field/)
+- [IngestStatus](https://apis.io/schemas/axiom-co/axiom-co-ingest-status/)
+- [Monitor](https://apis.io/schemas/axiom-co/axiom-co-monitor/)
+- [Notifier](https://apis.io/schemas/axiom-co/axiom-co-notifier/)
+- [Organization](https://apis.io/schemas/axiom-co/axiom-co-organization/)
+- [QueryResult](https://apis.io/schemas/axiom-co/axiom-co-query-result/)
+- [StarredQuery](https://apis.io/schemas/axiom-co/axiom-co-starred-query/)
+- [Token](https://apis.io/schemas/axiom-co/axiom-co-token/)
+- [TokenCreateRequest](https://apis.io/schemas/axiom-co/axiom-co-token-create-request/)
+- [TokenCreated](https://apis.io/schemas/axiom-co/axiom-co-token-created/)
+- [User](https://apis.io/schemas/axiom-co/axiom-co-user/)
+- [VirtualField](https://apis.io/schemas/axiom-co/axiom-co-virtual-field/)
 
-- **Human URL:** [https://axiom.co/docs/restapi/endpoints/getDatasets](https://axiom.co/docs/restapi/endpoints/getDatasets)
-- **Base URL:** `https://api.axiom.co/v1`
+#### JSON-LD (1)
 
-#### Tags
+Linked-data contexts for the provider's vocabulary.
 
-- Datasets
-- Storage
-- Management
+- [Axiom Co Context](https://apis.io/jsonld/axiom-co/axiom-co-context/)
 
-#### Properties
+#### Collections (14)
 
-- [API Reference](https://axiom.co/docs/restapi/endpoints/getDatasets)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Axiom Fields API
+- [Axiom API](https://apis.io/collections/axiom-co/open-axiom-co/)
+- [Axiom Annotations API](https://apis.io/collections/axiom-co/open-axiom-co-annotations-api/)
+- [Axiom Annotations Dashboards API](https://apis.io/collections/axiom-co/open-axiom-co-dashboards-api/)
+- [Axiom Annotations Datasets API](https://apis.io/collections/axiom-co/open-axiom-co-datasets-api/)
+- [Axiom Annotations Fields API](https://apis.io/collections/axiom-co/open-axiom-co-fields-api/)
+- [Axiom Annotations Ingest API](https://apis.io/collections/axiom-co/open-axiom-co-ingest-api/)
+- [Axiom Annotations Monitors API](https://apis.io/collections/axiom-co/open-axiom-co-monitors-api/)
+- [Axiom Annotations Notifiers API](https://apis.io/collections/axiom-co/open-axiom-co-notifiers-api/)
+- [Axiom Annotations Organizations API](https://apis.io/collections/axiom-co/open-axiom-co-organizations-api/)
+- [Axiom Annotations Query API](https://apis.io/collections/axiom-co/open-axiom-co-query-api/)
+- [Axiom Annotations Starred Queries API](https://apis.io/collections/axiom-co/open-axiom-co-starred-queries-api/)
+- [Axiom Annotations Tokens API](https://apis.io/collections/axiom-co/open-axiom-co-tokens-api/)
+- [Axiom Annotations Users API](https://apis.io/collections/axiom-co/open-axiom-co-users-api/)
+- [Axiom Annotations Virtual Fields API](https://apis.io/collections/axiom-co/open-axiom-co-virtual-fields-api/)
 
-Inspect and annotate the fields of a dataset - list the discovered schema for a dataset and read or update per-field metadata such as description, unit, and hidden state.
+#### Governance rules (1)
 
-- **Human URL:** [https://axiom.co/docs/restapi/endpoints/getFieldsForDataset](https://axiom.co/docs/restapi/endpoints/getFieldsForDataset)
-- **Base URL:** `https://api.axiom.co/v1`
+Spectral rulesets for the provider's contracts.
 
-#### Tags
+- [Axiom API Rules](https://apis.io/rules/axiom-co/axiom-co-rules/)
 
-- Fields
-- Schema
-- Datasets
+#### Security (2)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [API Reference](https://axiom.co/docs/restapi/endpoints/getFieldsForDataset)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Axiom Co Authentication](https://apis.io/security/axiom-co/axiom-co-authentication/)
+- [Axiom Co Domain Security](https://apis.io/security/axiom-co/axiom-co-domain-security/)
 
-### Axiom Annotations API
+#### Plans and pricing (1)
 
-Create, list, retrieve, update, and delete annotations that mark deployments, incidents, and other events on your dashboards and charts, scoped to datasets and time ranges.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://axiom.co/docs/restapi/endpoints/getAnnotations](https://axiom.co/docs/restapi/endpoints/getAnnotations)
-- **Base URL:** `https://api.axiom.co/v2`
+- [Axiom Co Plans Pricing](https://apis.io/plans/axiom-co/axiom-co-plans-pricing/)
 
-#### Tags
+#### Rate limits (1)
 
-- Annotations
-- Events
-- Context
+Published request limits.
 
-#### Properties
+- [Axiom Co Rate Limits](https://apis.io/rate-limits/axiom-co/axiom-co-rate-limits/)
 
-- [API Reference](https://axiom.co/docs/restapi/endpoints/getAnnotations)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### FinOps (1)
 
-### Axiom Monitors API
+What the API costs to run, by operation.
 
-Manage monitors - threshold and match alerts backed by APL queries that watch your data and fire notifications. Create, list, retrieve, update, and delete monitors and read monitor run history.
+- [Axiom Co Finops](https://apis.io/finops/axiom-co/axiom-co-finops/)
 
-- **Human URL:** [https://axiom.co/docs/restapi/endpoints/getMonitors](https://axiom.co/docs/restapi/endpoints/getMonitors)
-- **Base URL:** `https://api.axiom.co/v2`
+## Where to find this API
 
-#### Tags
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- Monitors
-- Alerts
-- Alerting
-
-#### Properties
-
-- [API Reference](https://axiom.co/docs/restapi/endpoints/getMonitors)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Axiom Notifiers API
-
-Manage notifiers - the notification channels (email, Slack, PagerDuty, webhooks, and more) that monitors dispatch alerts through. Create, list, retrieve, update, and delete notifier configurations.
-
-- **Human URL:** [https://axiom.co/docs/restapi/endpoints/getNotifiers](https://axiom.co/docs/restapi/endpoints/getNotifiers)
-- **Base URL:** `https://api.axiom.co/v2`
-
-#### Tags
-
-- Notifiers
-- Notifications
-- Alerting
-
-#### Properties
-
-- [API Reference](https://axiom.co/docs/restapi/endpoints/getNotifiers)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Axiom Dashboards API
-
-Create, list, retrieve, update, patch, and delete dashboards - the collections of charts and APL-backed visualizations that present your event data, with pagination support.
-
-- **Human URL:** [https://axiom.co/docs/restapi/endpoints/getDashboards](https://axiom.co/docs/restapi/endpoints/getDashboards)
-- **Base URL:** `https://api.axiom.co/v2`
-
-#### Tags
-
-- Dashboards
-- Visualization
-- Analytics
-
-#### Properties
-
-- [API Reference](https://axiom.co/docs/restapi/endpoints/getDashboards)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Axiom Virtual Fields API
-
-Define virtual fields - derived fields computed from an APL expression at query time for a dataset. Create, list, retrieve, update, and delete virtual fields scoped to a dataset.
-
-- **Human URL:** [https://axiom.co/docs/restapi/endpoints/getVirtualFields](https://axiom.co/docs/restapi/endpoints/getVirtualFields)
-- **Base URL:** `https://api.axiom.co/v2`
-
-#### Tags
-
-- Virtual Fields
-- Derived Fields
-- Schema
-
-#### Properties
-
-- [API Reference](https://axiom.co/docs/restapi/endpoints/getVirtualFields)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Axiom Starred Queries API
-
-Manage starred (saved) queries - reusable APL queries saved for a dataset and shared across a team. Create, list, retrieve, update, and delete starred queries.
-
-- **Human URL:** [https://axiom.co/docs/restapi/endpoints](https://axiom.co/docs/restapi/endpoints)
-- **Base URL:** `https://api.axiom.co/v2`
-
-#### Tags
-
-- Starred Queries
-- Saved Queries
-- APL
-
-#### Properties
-
-- [API Reference](https://axiom.co/docs/restapi/endpoints)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Axiom API Tokens API
-
-Manage API tokens - scoped credentials (basic ingest-only or advanced query/manage) used to authenticate API requests. Create, list, retrieve, regenerate, and delete tokens. Personal Access Tokens require an `x-axiom-org-id` header.
-
-- **Human URL:** [https://axiom.co/docs/restapi/endpoints/getTokens](https://axiom.co/docs/restapi/endpoints/getTokens)
-- **Base URL:** `https://api.axiom.co/v2`
-
-#### Tags
-
-- Tokens
-- Authentication
-- Security
-
-#### Properties
-
-- [API Reference](https://axiom.co/docs/restapi/endpoints/getTokens)
-- [Documentation](https://axiom.co/docs/reference/tokens)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Axiom Users API
-
-Retrieve the currently authenticated user, list organization members, update roles, and remove members. The current-user lookup is also available on the v1 endpoint family.
-
-- **Human URL:** [https://axiom.co/docs/restapi/endpoints/getCurrentUser](https://axiom.co/docs/restapi/endpoints/getCurrentUser)
-- **Base URL:** `https://api.axiom.co/v2`
-
-#### Tags
-
-- Users
-- Members
-- Administration
-
-#### Properties
-
-- [API Reference](https://axiom.co/docs/restapi/endpoints/getCurrentUser)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Axiom Organizations API
-
-Read and manage organization settings - retrieve the organizations a caller belongs to, get an organization by ID, and update organization-level configuration.
-
-- **Human URL:** [https://axiom.co/docs/restapi/endpoints](https://axiom.co/docs/restapi/endpoints)
-- **Base URL:** `https://api.axiom.co/v1`
-
-#### Tags
-
-- Organizations
-- Account
-- Administration
-
-#### Properties
-
-- [API Reference](https://axiom.co/docs/restapi/endpoints)
-- [OpenAPI](openapi/axiom-co-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/axiom-co.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/axiom-co.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/axiomhq)
-- [LinkedIn](https://www.linkedin.com/company/axiomhq)
 - [Website](https://axiom.co/)
 - [Documentation](https://axiom.co/docs)
-- [Plans](plans/axiom-co-plans-pricing.yml)
-- [Rate Limits](rate-limits/axiom-co-rate-limits.yml)
-- [Fin Ops](finops/axiom-co-finops.yml)
+- [Blog](https://axiom.co/blog/feed.xml)
+- [GitHub](https://github.com/axiomhq)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 37.7** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 69.3 |
+| Contract governance | 19.7 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 38.6 |
+| Access clarity | 7.9 |
+
+**Agent readiness 41.8** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | verified |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | unknown |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/axiom-co/](https://apis.io/providers/axiom-co/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Axiom: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/axiom-co/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
